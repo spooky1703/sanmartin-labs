@@ -23,6 +23,7 @@ import {
     Clock,
     CheckCircle,
     XCircle,
+    Mail,
 } from "lucide-react";
 import { formatDate, isReportExpired } from "@/lib/utils";
 import { PrintButton } from "@/components/reportes/PrintButton";
@@ -150,7 +151,7 @@ export default async function ReporteDetailPage({ params }: PageProps) {
                         </div>
                     </div>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
                     <PrintButton pdfUrl={`/api/reportes/${reporte.id}/pdf`} />
                     <Button
                         asChild
@@ -161,6 +162,20 @@ export default async function ReporteDetailPage({ params }: PageProps) {
                             Descargar PDF
                         </a>
                     </Button>
+                    {reporte.paciente.email && (
+                        <Button
+                            asChild
+                            variant="outline"
+                            className="border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10"
+                        >
+                            <a
+                                href={`mailto:${reporte.paciente.email}?subject=${encodeURIComponent(`Resultados de Laboratorio - ${reporte.laboratorio.nombre}`)}&body=${encodeURIComponent(`Estimado(a) ${getNombreCompleto()},\n\nLe informamos que sus resultados de laboratorio están listos.\n\n📋 Folio: ${reporte.paciente.folio}\n\nPuede consultar y descargar sus resultados en línea en el siguiente enlace:\n${process.env.NEXTAUTH_URL || 'https://sanmartin-labs-production.up.railway.app'}${consultaUrl}\n\nPara acceder, necesitará su número de folio: ${reporte.paciente.folio}\n\nSaludos cordiales,\n${reporte.laboratorio.nombre}`)}`}
+                            >
+                                <Mail className="mr-2 h-4 w-4" />
+                                Enviar Email
+                            </a>
+                        </Button>
+                    )}
                 </div>
             </div>
 
