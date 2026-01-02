@@ -1,0 +1,158 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Laboratorio {
+  id        String   @id @default(cuid())
+  nombre    String
+  direccion String?
+  telefono  String?
+  email     String?
+  logo      String?
+  activo    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  usuarios  Usuario[]
+  pacientes Paciente[]
+  reportes  Reporte[]
+
+  @@map("laboratorios")
+}
+
+model Usuario {
+  id            String     @id @default(cuid())
+  email         String     @unique
+  nombre        String
+  apellido      String
+  password      String
+  rol           RolUsuario @default(TECNICO)
+  laboratorioId String
+  activo        Boolean    @default(true)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  laboratorio Laboratorio @relation(fields: [laboratorioId], references: [id])
+  reportes    Reporte[]
+
+  @@map("usuarios")
+}
+
+enum RolUsuario {
+  ADMIN
+  SUPERVISOR
+  TECNICO
+}
+
+model Paciente {
+  id              String    @id @default(cuid())
+  folio           String
+  nombre          String
+  apellidoPaterno String
+  apellidoMaterno String?
+  fechaNacimiento DateTime?
+  genero          String?
+  telefono        String?
+  email           String?
+  laboratorioId   String
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  laboratorio Laboratorio @relation(fields: [laboratorioId], references: [id])
+  estudios    Estudio[]
+  reportes    Reporte[]
+
+  @@unique([laboratorioId, folio])
+  @@map("pacientes")
+}
+
+model Estudio {
+  id               String             @id @default(cuid())
+  pacienteId       String
+  nombreEstudio    String
+  fechaRealizacion DateTime
+  observaciones    String?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+
+  paciente   Paciente           @relation(fields: [pacienteId], references: [id])
+  parametros ParametroEstudio[]
+  reportes   ReporteEstudio[]
+
+  @@map("estudios")
+}
+
+model ParametroEstudio {
+  id              String   @id @default(cuid())
+  estudioId       String
+  nombreParametro String
+  valor           String
+  unidad          String
+  valorRefMin     String?
+  valorRefMax     String?
+  orden           Int      @default(0)
+  createdAt       DateTime @default(now())
+
+  estudio Estudio @relation(fields: [estudioId], references: [id], onDelete: Cascade)
+
+  @@map("parametros_estudio")
+}
+
+model Reporte {
+  id              String           @id @default(cuid())
+  codigoAcceso    String           @unique @default(cuid())
+  pacienteId      String
+  laboratorioId   String
+  usuarioId       String
+  fechaEmision    DateTime         @default(now())
+  fechaExpiracion DateTime
+  vigente         Boolean          @default(true)
+  urlPdf          String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  paciente    Paciente         @relation(fields: [pacienteId], references: [id])
+  laboratorio Laboratorio      @relation(fields: [laboratorioId], references: [id])
+  usuario     Usuario          @relation(fields: [usuarioId], references: [id])
+  estudios    ReporteEstudio[]
+
+  @@map("reportes")
+}
+
+model ReporteEstudio {
+  reporteId String
+  estudioId String
+  createdAt DateTime @default(now())
+
+  reporte Reporte @relation(fields: [reporteId], references: [id], onDelete: Cascade)
+  estudio Estudio @relation(fields: [estudioId], references: [id])
+
+  @@id([reporteId, estudioId])
+  @@map("reporte_estudios")
+}
+
+model AuditoriaLog {
+  id            String   @id @default(cuid())
+  usuarioId     String?
+  usuarioEmail  String?
+  laboratorioId String?
+  accion        String   // CREAR, EDITAR, ELIMINAR, CONSULTAR, LOGIN
+  entidad       String   // PACIENTE, ESTUDIO, REPORTE, USUARIO
+  entidadId     String?
+  descripcion   String
+  metadata      Json?    // Additional data about the action
+  ip            String?
+  userAgent     String?
+  createdAt     DateTime @default(now())
+
+  @@index([usuarioId])
+  @@index([laboratorioId])
+  @@index([entidad])
+  @@index([createdAt])
+  @@map("auditoria_logs")
+}
