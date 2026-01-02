@@ -24,6 +24,7 @@ import {
     CheckCircle,
     XCircle,
     Mail,
+    MessageCircle,
 } from "lucide-react";
 import { formatDate, isReportExpired } from "@/lib/utils";
 import { PrintButton } from "@/components/reportes/PrintButton";
@@ -172,7 +173,22 @@ export default async function ReporteDetailPage({ params }: PageProps) {
                                 href={`mailto:${reporte.paciente.email}?subject=${encodeURIComponent(`Resultados de Laboratorio - ${reporte.laboratorio.nombre}`)}&body=${encodeURIComponent(`Estimado(a) ${getNombreCompleto()},\n\nLe informamos que sus resultados de laboratorio están listos.\n\n📋 Folio: ${reporte.paciente.folio}\n\nPuede consultar y descargar sus resultados en línea en el siguiente enlace:\n${process.env.NEXTAUTH_URL || 'https://sanmartin-labs-production.up.railway.app'}${consultaUrl}\n\nPara acceder, necesitará su número de folio: ${reporte.paciente.folio}\n\nSaludos cordiales,\n${reporte.laboratorio.nombre}`)}`}
                             >
                                 <Mail className="mr-2 h-4 w-4" />
-                                Enviar Email
+                                Email
+                            </a>
+                        </Button>
+                    )}
+                    {reporte.paciente.telefono && (
+                        <Button
+                            asChild
+                            variant="outline"
+                            className="border-green-500/30 text-green-400 hover:bg-green-500/10"
+                        >
+                            <a
+                                href={`https://wa.me/${reporte.paciente.telefono.replace(/\D/g, '')}?text=${encodeURIComponent(`🔬 *${reporte.laboratorio.nombre}*\n\nEstimado(a) ${getNombreCompleto()},\n\nSus resultados de laboratorio están listos.\n\n📋 *Folio:* ${reporte.paciente.folio}\n\n🔗 *Consultar resultados:*\n${process.env.NEXTAUTH_URL || 'https://sanmartin-labs-production.up.railway.app'}${consultaUrl}\n\nPara acceder necesita su folio: *${reporte.paciente.folio}*`)}`}
+                                target="_blank"
+                            >
+                                <MessageCircle className="mr-2 h-4 w-4" />
+                                WhatsApp
                             </a>
                         </Button>
                     )}

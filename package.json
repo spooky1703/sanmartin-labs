@@ -33,13 +33,11 @@
     "lucide-react": "^0.562.0",
     "next": "16.1.1",
     "next-auth": "^5.0.0-beta.30",
-    "nodemailer": "^7.0.12",
     "pg": "^8.16.3",
     "qrcode": "^1.5.4",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-hook-form": "^7.69.0",
-    "resend": "^6.6.0",
     "tailwind-merge": "^3.4.0",
     "zod": "^4.3.2"
   },

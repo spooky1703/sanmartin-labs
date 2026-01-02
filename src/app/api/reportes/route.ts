@@ -3,7 +3,6 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { reporteSchema } from "@/schemas/reporte.schema";
 import { auditarAccion } from "@/lib/audit-service";
-import { enviarReportePorEmail } from "@/lib/email-service";
 
 // GET /api/reportes - List all reports for the laboratory
 export async function GET(request: NextRequest) {
@@ -179,36 +178,11 @@ export async function POST(request: NextRequest) {
             { estudiosCount: parsed.data.estudiosIds.length }
         );
 
-        // Send email in background (fire-and-forget) - don't block the response
-        if (paciente.email && process.env.SMTP_HOST) {
-            const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
-            const consultaUrl = `${baseUrl}/consulta/${reporte.codigoAcceso}`;
-
-            // Don't await - let it run in background
-            enviarReportePorEmail({
-                to: paciente.email,
-                patientName: `${paciente.nombre} ${paciente.apellidoPaterno}`,
-                labName: reporte.laboratorio.nombre,
-                folio: paciente.folio,
-                consultaUrl,
-            }).then(result => {
-                if (result.success) {
-                    console.log(`Email sent to ${paciente.email}`);
-                } else {
-                    console.warn(`Email failed: ${result.error}`);
-                }
-            }).catch(err => {
-                console.error("Email error:", err);
-            });
-        }
-
         return NextResponse.json(
             {
                 success: true,
                 data: reporte,
-                message: paciente.email
-                    ? "Reporte emitido. Email enviándose en segundo plano."
-                    : "Reporte emitido exitosamente",
+                message: "Reporte emitido exitosamente",
             },
             { status: 201 }
         );
