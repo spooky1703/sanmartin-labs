@@ -1,15 +1,21 @@
 import nodemailer from "nodemailer";
 
 // Create reusable transporter object using the default SMTP transport
-const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: parseInt(process.env.SMTP_PORT || "587"),
-    secure: process.env.SMTP_SECURE === "true", // true for 465, false for other ports
-    auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-    },
-});
+const createTransporter = () => {
+    if (!process.env.SMTP_HOST) return null;
+
+    return nodemailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port: parseInt(process.env.SMTP_PORT || "587"),
+        secure: process.env.SMTP_SECURE === "true",
+        auth: {
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_PASS,
+        },
+        connectionTimeout: 5000, // 5 seconds to connect
+        socketTimeout: 10000,    // 10 seconds for socket operations
+    });
+};
 
 interface SendReportEmailParams {
     to: string;
@@ -26,7 +32,9 @@ export async function enviarReportePorEmail({
     folio,
     consultaUrl,
 }: SendReportEmailParams): Promise<{ success: boolean; error?: string }> {
-    if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    const transporter = createTransporter();
+
+    if (!transporter) {
         console.warn("SMTP not configured - email not sent");
         return { success: false, error: "SMTP service not configured" };
     }

@@ -179,41 +179,36 @@ export async function POST(request: NextRequest) {
             { estudiosCount: parsed.data.estudiosIds.length }
         );
 
-        // Send email to patient if they have an email address
-        let emailSent = false;
+        // Send email in background (fire-and-forget) - don't block the response
         if (paciente.email && process.env.SMTP_HOST) {
-            try {
-                const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
-                const consultaUrl = `${baseUrl}/consulta/${reporte.codigoAcceso}`;
+            const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+            const consultaUrl = `${baseUrl}/consulta/${reporte.codigoAcceso}`;
 
-                // Send email
-                const emailResult = await enviarReportePorEmail({
-                    to: paciente.email,
-                    patientName: `${paciente.nombre} ${paciente.apellidoPaterno}`,
-                    labName: reporte.laboratorio.nombre,
-                    folio: paciente.folio,
-                    consultaUrl,
-                });
-
-                emailSent = emailResult.success;
-                if (emailResult.success) {
+            // Don't await - let it run in background
+            enviarReportePorEmail({
+                to: paciente.email,
+                patientName: `${paciente.nombre} ${paciente.apellidoPaterno}`,
+                labName: reporte.laboratorio.nombre,
+                folio: paciente.folio,
+                consultaUrl,
+            }).then(result => {
+                if (result.success) {
                     console.log(`Email sent to ${paciente.email}`);
                 } else {
-                    console.warn(`Email failed: ${emailResult.error}`);
+                    console.warn(`Email failed: ${result.error}`);
                 }
-            } catch (emailError) {
-                console.error("Error sending email:", emailError);
-            }
+            }).catch(err => {
+                console.error("Email error:", err);
+            });
         }
 
         return NextResponse.json(
             {
                 success: true,
                 data: reporte,
-                message: emailSent
-                    ? "Reporte emitido y enviado por email exitosamente"
+                message: paciente.email
+                    ? "Reporte emitido. Email enviándose en segundo plano."
                     : "Reporte emitido exitosamente",
-                emailSent,
             },
             { status: 201 }
         );
