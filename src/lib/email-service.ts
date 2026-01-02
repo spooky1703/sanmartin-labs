@@ -4,16 +4,22 @@ import nodemailer from "nodemailer";
 const createTransporter = () => {
     if (!process.env.SMTP_HOST) return null;
 
+    const port = parseInt(process.env.SMTP_PORT || "465");
+    const isSecure = port === 465 || process.env.SMTP_SECURE === "true";
+
     return nodemailer.createTransport({
         host: process.env.SMTP_HOST,
-        port: parseInt(process.env.SMTP_PORT || "587"),
-        secure: process.env.SMTP_SECURE === "true",
+        port,
+        secure: isSecure, // true for 465, false for 587
         auth: {
             user: process.env.SMTP_USER,
             pass: process.env.SMTP_PASS,
         },
-        connectionTimeout: 5000, // 5 seconds to connect
-        socketTimeout: 10000,    // 10 seconds for socket operations
+        connectionTimeout: 10000, // 10 seconds to connect
+        socketTimeout: 15000,     // 15 seconds for socket operations
+        tls: {
+            rejectUnauthorized: false, // Allow self-signed certs
+        },
     });
 };
 
