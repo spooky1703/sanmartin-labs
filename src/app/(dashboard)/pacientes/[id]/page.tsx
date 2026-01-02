@@ -105,10 +105,10 @@ export default async function PacienteDetailPage({ params }: PageProps) {
                         asChild
                         className="border-blue-500/30 text-blue-400 hover:bg-blue-500/10"
                     >
-                        <Link href={`/pacientes/${id}/editar`}>
+                        <a href={`/pacientes/${id}/editar`}>
                             <Edit className="mr-2 h-4 w-4" />
                             Editar
-                        </Link>
+                        </a>
                     </Button>
                     <Button
                         variant="outline"
