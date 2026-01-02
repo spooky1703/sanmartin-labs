@@ -151,7 +151,7 @@ function NuevoReporteContent() {
     if (isFetching) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <Loader2 className="h-8 w-8 animate-spin text-emerald-500" />
+                <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
             </div>
         );
     }
@@ -197,13 +197,13 @@ function NuevoReporteContent() {
                     </CardHeader>
                     <CardContent className="space-y-4">
                         {selectedPaciente ? (
-                            <div className="p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
+                            <div className="p-4 rounded-lg bg-blue-500/10 border border-blue-500/30">
                                 <div className="flex justify-between items-start">
                                     <div>
                                         <p className="text-white font-medium">{getNombreCompleto(selectedPaciente)}</p>
                                         <Badge
                                             variant="outline"
-                                            className="mt-1 font-mono text-emerald-400 border-emerald-500/30"
+                                            className="mt-1 font-mono text-blue-400 border-blue-500/30"
                                         >
                                             {selectedPaciente.folio}
                                         </Badge>
@@ -250,10 +250,10 @@ function NuevoReporteContent() {
                 <Card className="bg-slate-900 border-slate-800">
                     <CardHeader>
                         <CardTitle className="text-white flex items-center gap-2">
-                            <ClipboardList className="h-5 w-5 text-emerald-500" />
+                            <ClipboardList className="h-5 w-5 text-blue-500" />
                             2. Seleccionar Estudios
                             {selectedEstudios.length > 0 && (
-                                <Badge className="ml-2 bg-emerald-500">
+                                <Badge className="ml-2 bg-blue-500">
                                     {selectedEstudios.length} seleccionado{selectedEstudios.length !== 1 ? "s" : ""}
                                 </Badge>
                             )}
@@ -287,7 +287,7 @@ function NuevoReporteContent() {
                                             key={estudio.id}
                                             onClick={() => toggleEstudio(estudio.id)}
                                             className={`w-full p-3 text-left rounded-lg border transition-colors ${isSelected
-                                                ? "bg-emerald-500/20 border-emerald-500/50"
+                                                ? "bg-blue-500/20 border-blue-500/50"
                                                 : "bg-slate-800 border-slate-700 hover:bg-slate-700"
                                                 }`}
                                         >
@@ -299,7 +299,7 @@ function NuevoReporteContent() {
                                                     </p>
                                                 </div>
                                                 {isSelected && (
-                                                    <div className="h-6 w-6 rounded-full bg-emerald-500 flex items-center justify-center">
+                                                    <div className="h-6 w-6 rounded-full bg-blue-500 flex items-center justify-center">
                                                         <Check className="h-4 w-4 text-white" />
                                                     </div>
                                                 )}
@@ -366,7 +366,7 @@ export default function NuevoReportePage() {
     return (
         <Suspense fallback={
             <div className="flex items-center justify-center min-h-[400px]">
-                <Loader2 className="h-8 w-8 animate-spin text-emerald-500" />
+                <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
             </div>
         }>
             <NuevoReporteContent />

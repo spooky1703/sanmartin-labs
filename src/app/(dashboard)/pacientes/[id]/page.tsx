@@ -88,12 +88,12 @@ export default async function PacienteDetailPage({ params }: PageProps) {
                     </Button>
                     <div>
                         <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-                            <User className="h-6 w-6 text-emerald-500" />
+                            <User className="h-6 w-6 text-blue-500" />
                             {getNombreCompleto()}
                         </h1>
                         <Badge
                             variant="outline"
-                            className="mt-1 font-mono text-emerald-400 border-emerald-500/30 bg-emerald-500/10"
+                            className="mt-1 font-mono text-blue-400 border-blue-500/30 bg-blue-500/10"
                         >
                             Folio: {paciente.folio}
                         </Badge>
@@ -122,7 +122,7 @@ export default async function PacienteDetailPage({ params }: PageProps) {
                     </Button>
                     <Button
                         asChild
-                        className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700"
+                        className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700"
                     >
                         <Link href={`/reportes/nuevo?pacienteId=${id}`}>
                             <FileText className="mr-2 h-4 w-4" />
@@ -138,13 +138,15 @@ export default async function PacienteDetailPage({ params }: PageProps) {
                     <CardHeader>
                         <CardTitle className="text-white flex items-center justify-between">
                             Información Personal
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                className="text-slate-400 hover:text-white"
-                            >
-                                <Edit className="h-4 w-4" />
-                            </Button>
+                            <a href={`/pacientes/${id}/editar`}>
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="text-slate-400 hover:text-white"
+                                >
+                                    <Edit className="h-4 w-4" />
+                                </Button>
+                            </a>
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">

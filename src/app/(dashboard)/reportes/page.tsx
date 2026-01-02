@@ -73,7 +73,7 @@ export default async function ReportesPage({ searchParams }: PageProps) {
             );
         }
         return (
-            <Badge variant="outline" className="border-emerald-500/30 bg-emerald-500/10 text-emerald-400">
+            <Badge variant="outline" className="border-blue-500/30 bg-blue-500/10 text-blue-400">
                 Vigente
             </Badge>
         );
@@ -128,7 +128,7 @@ export default async function ReportesPage({ searchParams }: PageProps) {
                                         </p>
                                         <Badge
                                             variant="outline"
-                                            className="font-mono text-xs text-emerald-400 border-emerald-500/30 bg-emerald-500/10"
+                                            className="font-mono text-xs text-blue-400 border-blue-500/30 bg-blue-500/10"
                                         >
                                             {reporte.paciente.folio}
                                         </Badge>

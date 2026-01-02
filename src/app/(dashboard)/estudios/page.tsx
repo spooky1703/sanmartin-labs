@@ -70,7 +70,7 @@ export default async function EstudiosPage({ searchParams }: PageProps) {
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
                     <h1 className="text-3xl font-bold text-white flex items-center gap-3">
-                        <ClipboardList className="h-8 w-8 text-emerald-500" />
+                        <ClipboardList className="h-8 w-8 text-blue-500" />
                         Estudios
                     </h1>
                     <p className="text-slate-400 mt-1">
@@ -111,7 +111,7 @@ export default async function EstudiosPage({ searchParams }: PageProps) {
                                             </p>
                                             <Badge
                                                 variant="outline"
-                                                className="font-mono text-xs text-emerald-400 border-emerald-500/30 bg-emerald-500/10"
+                                                className="font-mono text-xs text-blue-400 border-blue-500/30 bg-blue-500/10"
                                             >
                                                 {estudio.paciente.folio}
                                             </Badge>

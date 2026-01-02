@@ -87,7 +87,7 @@ export function PacientesList({ pacientes }: PacientesListProps) {
                             <TableCell>
                                 <Badge
                                     variant="outline"
-                                    className="font-mono text-emerald-400 border-emerald-500/30 bg-emerald-500/10"
+                                    className="font-mono text-blue-400 border-blue-500/30 bg-blue-500/10"
                                 >
                                     {paciente.folio}
                                 </Badge>

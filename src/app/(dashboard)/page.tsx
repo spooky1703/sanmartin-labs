@@ -45,8 +45,8 @@ export default async function DashboardPage() {
             title: "Estudios",
             value: stats.estudiosCount,
             icon: ClipboardList,
-            gradient: "from-emerald-500 to-teal-600",
-            bgGradient: "from-emerald-500/10 to-teal-600/10",
+            gradient: "from-blue-500 to-indigo-600",
+            bgGradient: "from-blue-500/10 to-indigo-600/10",
         },
         {
             title: "Reportes Totales",
@@ -100,9 +100,9 @@ export default async function DashboardPage() {
 
             {/* Quick Actions */}
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                <Card className="bg-slate-900 border-slate-800 hover:border-emerald-500/50 transition-all duration-300 cursor-pointer group">
+                <Card className="bg-slate-900 border-slate-800 hover:border-blue-500/50 transition-all duration-300 cursor-pointer group">
                     <CardHeader>
-                        <CardTitle className="flex items-center gap-2 text-white group-hover:text-emerald-400 transition-colors">
+                        <CardTitle className="flex items-center gap-2 text-white group-hover:text-blue-400 transition-colors">
                             <Users className="h-5 w-5" />
                             Nuevo Paciente
                         </CardTitle>

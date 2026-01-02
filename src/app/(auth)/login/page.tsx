@@ -60,7 +60,7 @@ export default function LoginPage() {
     return (
         <Card className="border-slate-700 bg-slate-800/50 backdrop-blur-sm shadow-2xl">
             <CardHeader className="space-y-4 text-center">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 shadow-lg">
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg">
                     <FlaskConical className="h-8 w-8 text-white" />
                 </div>
                 <div>
@@ -89,7 +89,7 @@ export default function LoginPage() {
                             id="email"
                             type="email"
                             placeholder="usuario@laboratorio.com"
-                            className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-emerald-500 focus:ring-emerald-500"
+                            className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500"
                             {...register("email")}
                             disabled={isLoading}
                         />
@@ -106,7 +106,7 @@ export default function LoginPage() {
                             id="password"
                             type="password"
                             placeholder="••••••••"
-                            className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-emerald-500 focus:ring-emerald-500"
+                            className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500"
                             {...register("password")}
                             disabled={isLoading}
                         />
@@ -117,7 +117,7 @@ export default function LoginPage() {
 
                     <Button
                         type="submit"
-                        className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold shadow-lg"
+                        className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold shadow-lg"
                         disabled={isLoading}
                     >
                         {isLoading ? (

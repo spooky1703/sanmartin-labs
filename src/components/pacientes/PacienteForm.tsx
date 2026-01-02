@@ -227,7 +227,7 @@ export function PacienteForm({
             <div className="flex justify-end gap-4">
                 <Button
                     type="submit"
-                    className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700"
+                    className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700"
                     disabled={isLoading}
                 >
                     {isLoading ? (

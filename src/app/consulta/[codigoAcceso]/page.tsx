@@ -135,7 +135,7 @@ export default function ConsultaPage({
 
         if (numMin !== null && numValue < numMin) return "text-blue-400 font-semibold";
         if (numMax !== null && numValue > numMax) return "text-red-400 font-semibold";
-        if (numMin !== null || numMax !== null) return "text-emerald-400";
+        if (numMin !== null || numMax !== null) return "text-blue-400";
 
         return "text-slate-300";
     };
@@ -157,7 +157,7 @@ export default function ConsultaPage({
                         <CardContent className="pt-6">
                             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                                 <div className="flex items-center gap-4">
-                                    <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600">
+                                    <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600">
                                         <FlaskConical className="h-7 w-7 text-white" />
                                     </div>
                                     <div>
@@ -170,7 +170,7 @@ export default function ConsultaPage({
                                     </div>
                                 </div>
                                 <div className="flex flex-col md:flex-row gap-2 items-center">
-                                    <Badge className="bg-emerald-500 text-white h-10 px-4">
+                                    <Badge className="bg-blue-500 text-white h-10 px-4">
                                         <CheckCircle className="mr-2 h-4 w-4" />
                                         Resultados Verificados
                                     </Badge>
@@ -209,7 +209,7 @@ export default function ConsultaPage({
                             </div>
                             <div>
                                 <p className="text-xs text-slate-500">Folio</p>
-                                <Badge variant="outline" className="font-mono text-emerald-400 border-emerald-500/30 bg-emerald-500/10">
+                                <Badge variant="outline" className="font-mono text-blue-400 border-blue-500/30 bg-blue-500/10">
                                     {resultado.paciente.folio}
                                 </Badge>
                             </div>
@@ -227,7 +227,7 @@ export default function ConsultaPage({
                     {/* Studies */}
                     {resultado.estudios.map((estudio, idx) => (
                         <Card key={idx} className="bg-slate-800/50 border-slate-700">
-                            <CardHeader className="bg-emerald-500/10 border-b border-slate-700">
+                            <CardHeader className="bg-blue-500/10 border-b border-slate-700">
                                 <CardTitle className="text-white">{estudio.nombreEstudio}</CardTitle>
                                 <CardDescription className="text-slate-400">
                                     <Calendar className="inline h-4 w-4 mr-1" />
@@ -277,7 +277,7 @@ export default function ConsultaPage({
                         <CardContent className="py-4">
                             <div className="flex flex-wrap gap-4 justify-center text-sm">
                                 <div className="flex items-center gap-2">
-                                    <div className="w-3 h-3 rounded-full bg-emerald-400" />
+                                    <div className="w-3 h-3 rounded-full bg-blue-400" />
                                     <span className="text-slate-400">Normal</span>
                                 </div>
                                 <div className="flex items-center gap-2">
@@ -307,7 +307,7 @@ export default function ConsultaPage({
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4">
             <Card className="w-full max-w-md bg-slate-800/50 border-slate-700 backdrop-blur-sm shadow-2xl">
                 <CardHeader className="text-center space-y-4">
-                    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 shadow-lg">
+                    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg">
                         <FlaskConical className="h-8 w-8 text-white" />
                     </div>
                     <div>
@@ -335,7 +335,7 @@ export default function ConsultaPage({
                             <Input
                                 id="folio"
                                 placeholder="Ingresa tu folio"
-                                className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-emerald-500"
+                                className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-blue-500"
                                 {...register("folio")}
                                 disabled={isLoading}
                             />
@@ -346,7 +346,7 @@ export default function ConsultaPage({
 
                         <Button
                             type="submit"
-                            className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700"
+                            className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700"
                             disabled={isLoading}
                         >
                             {isLoading ? (

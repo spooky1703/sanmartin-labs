@@ -92,7 +92,7 @@ export default function NuevoEstudioPage({
     if (isFetching) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500" />
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
             </div>
         );
     }
@@ -122,7 +122,7 @@ export default function NuevoEstudioPage({
                             <span className="text-slate-400">{getNombreCompleto()}</span>
                             <Badge
                                 variant="outline"
-                                className="font-mono text-emerald-400 border-emerald-500/30 bg-emerald-500/10"
+                                className="font-mono text-blue-400 border-blue-500/30 bg-blue-500/10"
                             >
                                 {paciente.folio}
                             </Badge>

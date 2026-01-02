@@ -91,7 +91,7 @@ export function Navbar() {
 
                         {/* Lab name - visible on mobile */}
                         <div className="flex lg:hidden items-center gap-2">
-                            <FlaskConical className="h-5 w-5 text-emerald-500" />
+                            <FlaskConical className="h-5 w-5 text-blue-500" />
                             <span className="font-semibold text-white text-sm truncate max-w-[150px]">
                                 {session?.user?.laboratorioNombre || "Laboratorio"}
                             </span>
@@ -114,10 +114,10 @@ export function Navbar() {
                                 <DropdownMenuTrigger asChild>
                                     <Button
                                         variant="ghost"
-                                        className="relative h-10 w-10 rounded-full ring-2 ring-slate-700 hover:ring-emerald-500/50 transition-all"
+                                        className="relative h-10 w-10 rounded-full ring-2 ring-slate-700 hover:ring-blue-500/50 transition-all"
                                     >
                                         <Avatar className="h-10 w-10">
-                                            <AvatarFallback className="bg-gradient-to-br from-emerald-500 to-teal-600 text-white font-medium">
+                                            <AvatarFallback className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white font-medium">
                                                 {getInitials(session?.user?.nombre, session?.user?.apellido)}
                                             </AvatarFallback>
                                         </Avatar>
@@ -163,7 +163,7 @@ export function Navbar() {
                     <div className="flex flex-col h-full">
                         <div className="flex items-center justify-between h-16 px-4 border-b border-slate-800">
                             <div className="flex items-center gap-2">
-                                <FlaskConical className="h-6 w-6 text-emerald-500" />
+                                <FlaskConical className="h-6 w-6 text-blue-500" />
                                 <span className="font-bold text-white">LabSystem</span>
                             </div>
                             <button
@@ -188,7 +188,7 @@ export function Navbar() {
                                                 className={cn(
                                                     "flex items-center gap-3 rounded-lg px-4 py-3 text-base font-medium transition-colors",
                                                     isActive
-                                                        ? "bg-emerald-500/20 text-emerald-400"
+                                                        ? "bg-blue-500/20 text-blue-400"
                                                         : "text-slate-400 hover:bg-slate-800 hover:text-white"
                                                 )}
                                             >

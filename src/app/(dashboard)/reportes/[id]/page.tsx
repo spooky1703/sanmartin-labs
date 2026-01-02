@@ -94,7 +94,7 @@ export default async function ReporteDetailPage({ params }: PageProps) {
             );
         }
         return (
-            <Badge variant="outline" className="border-emerald-500/30 bg-emerald-500/10 text-emerald-400">
+            <Badge variant="outline" className="border-blue-500/30 bg-blue-500/10 text-blue-400">
                 <CheckCircle className="mr-1 h-3 w-3" />
                 Vigente
             </Badge>
@@ -110,7 +110,7 @@ export default async function ReporteDetailPage({ params }: PageProps) {
 
         if (numMin !== null && numValue < numMin) return "text-blue-400 font-semibold";
         if (numMax !== null && numValue > numMax) return "text-red-400 font-semibold";
-        if (numMin !== null || numMax !== null) return "text-emerald-400";
+        if (numMin !== null || numMax !== null) return "text-blue-400";
 
         return "text-slate-300";
     };
@@ -167,7 +167,7 @@ export default async function ReporteDetailPage({ params }: PageProps) {
                         <Button
                             asChild
                             variant="outline"
-                            className="border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10"
+                            className="border-blue-500/30 text-blue-400 hover:bg-blue-500/10"
                         >
                             <a
                                 href={`mailto:${reporte.paciente.email}?subject=${encodeURIComponent(`Resultados de Laboratorio - ${reporte.laboratorio.nombre}`)}&body=${encodeURIComponent(`Estimado(a) ${getNombreCompleto()},\n\nLe informamos que sus resultados de laboratorio están listos.\n\n📋 Folio: ${reporte.paciente.folio}\n\nPuede consultar y descargar sus resultados en línea en el siguiente enlace:\n${process.env.NEXTAUTH_URL || 'https://sanmartin-labs-production.up.railway.app'}${consultaUrl}\n\nPara acceder, necesitará su número de folio: ${reporte.paciente.folio}\n\nSaludos cordiales,\n${reporte.laboratorio.nombre}`)}`}
@@ -213,7 +213,7 @@ export default async function ReporteDetailPage({ params }: PageProps) {
                             <p className="text-xs text-slate-500">Folio</p>
                             <Badge
                                 variant="outline"
-                                className="font-mono text-emerald-400 border-emerald-500/30 bg-emerald-500/10"
+                                className="font-mono text-blue-400 border-blue-500/30 bg-blue-500/10"
                             >
                                 {reporte.paciente.folio}
                             </Badge>
@@ -241,7 +241,7 @@ export default async function ReporteDetailPage({ params }: PageProps) {
                 <Card className="bg-slate-900 border-slate-800 lg:col-span-2">
                     <CardHeader>
                         <CardTitle className="text-white flex items-center gap-2">
-                            <QrCode className="h-5 w-5 text-emerald-500" />
+                            <QrCode className="h-5 w-5 text-blue-500" />
                             Consulta en Línea
                         </CardTitle>
                     </CardHeader>
@@ -254,7 +254,7 @@ export default async function ReporteDetailPage({ params }: PageProps) {
                                 <div className="space-y-2">
                                     <div>
                                         <p className="text-xs text-slate-500">URL de consulta</p>
-                                        <code className="text-emerald-400 text-sm break-all">
+                                        <code className="text-blue-400 text-sm break-all">
                                             {typeof window !== "undefined" ? window.location.origin : ""}{consultaUrl}
                                         </code>
                                     </div>
@@ -324,7 +324,7 @@ export default async function ReporteDetailPage({ params }: PageProps) {
                 <CardContent className="py-4">
                     <div className="flex flex-wrap gap-4 justify-center text-sm">
                         <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-full bg-emerald-400" />
+                            <div className="w-3 h-3 rounded-full bg-blue-400" />
                             <span className="text-slate-400">Normal</span>
                         </div>
                         <div className="flex items-center gap-2">

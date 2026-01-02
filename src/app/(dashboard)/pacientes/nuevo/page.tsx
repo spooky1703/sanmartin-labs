@@ -57,7 +57,7 @@ export default function NuevoPacientePage() {
                 </Button>
                 <div>
                     <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-                        <UserPlus className="h-6 w-6 text-emerald-500" />
+                        <UserPlus className="h-6 w-6 text-blue-500" />
                         Nuevo Paciente
                     </h1>
                     <p className="text-slate-400">Registra un nuevo paciente en el sistema</p>

@@ -60,7 +60,7 @@ export default async function PacientesPage({ searchParams }: PageProps) {
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
                     <h1 className="text-3xl font-bold text-white flex items-center gap-3">
-                        <Users className="h-8 w-8 text-emerald-500" />
+                        <Users className="h-8 w-8 text-blue-500" />
                         Pacientes
                     </h1>
                     <p className="text-slate-400 mt-1">
@@ -69,7 +69,7 @@ export default async function PacientesPage({ searchParams }: PageProps) {
                 </div>
                 <Button
                     asChild
-                    className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700"
+                    className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700"
                 >
                     <Link href="/pacientes/nuevo">
                         <UserPlus className="mr-2 h-4 w-4" />
