@@ -1,6 +1,9 @@
 import { auth } from "@/lib/auth";
 import { NextResponse } from "next/server";
 
+// Force Node.js runtime (Edge doesn't support crypto module used by NextAuth)
+export const runtime = "nodejs";
+
 export default auth((req) => {
     const isLoggedIn = !!req.auth;
     const { pathname } = req.nextUrl;
