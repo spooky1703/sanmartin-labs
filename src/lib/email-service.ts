@@ -32,14 +32,25 @@ export async function enviarReportePorEmail({
     folio,
     consultaUrl,
 }: SendReportEmailParams): Promise<{ success: boolean; error?: string }> {
+    // Diagnostic logging
+    console.log("📧 Email attempt:", {
+        to,
+        smtpHost: process.env.SMTP_HOST ? "✅ configured" : "❌ missing",
+        smtpPort: process.env.SMTP_PORT || "587 (default)",
+        smtpUser: process.env.SMTP_USER ? "✅ configured" : "❌ missing",
+        smtpPass: process.env.SMTP_PASS ? "✅ configured" : "❌ missing",
+        smtpFrom: process.env.SMTP_FROM || process.env.SMTP_USER,
+    });
+
     const transporter = createTransporter();
 
     if (!transporter) {
-        console.warn("SMTP not configured - email not sent");
+        console.error("❌ SMTP_HOST not configured - cannot create transporter");
         return { success: false, error: "SMTP service not configured" };
     }
 
     try {
+        console.log("📤 Sending email to:", to);
         const info = await transporter.sendMail({
             from: `"${labName}" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
             to: to,
