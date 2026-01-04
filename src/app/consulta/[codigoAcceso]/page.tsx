@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { consultaSchema, type ConsultaSchemaType } from "@/schemas/reporte.schema";
 import { Button } from "@/components/ui/button";
+import { CONTACT_INFO } from "@/lib/constants";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -168,11 +169,12 @@ export default function ConsultaPage({
                                     </div>
                                     <div>
                                         <h1 className="text-xl font-bold text-white">
-                                            {resultado.laboratorio.nombre}
+                                            {CONTACT_INFO.appName}
                                         </h1>
-                                        {resultado.laboratorio.direccion && (
-                                            <p className="text-sm text-slate-400">{resultado.laboratorio.direccion}</p>
-                                        )}
+                                        <p className="text-sm text-slate-400">{CONTACT_INFO.address}</p>
+                                        <p className="text-xs text-slate-500 mt-0.5">
+                                            Tel: {CONTACT_INFO.phone}
+                                        </p>
                                     </div>
                                 </div>
                                 <div className="flex flex-col md:flex-row gap-2 items-center">
