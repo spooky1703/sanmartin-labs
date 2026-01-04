@@ -16,6 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import { LogOut, User, Menu, FlaskConical } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import {
@@ -91,7 +92,14 @@ export function Navbar() {
 
                         {/* Lab name - visible on mobile */}
                         <div className="flex lg:hidden items-center gap-2">
-                            <FlaskConical className="h-5 w-5 text-blue-500" />
+                            <div className="relative h-6 w-6 overflow-hidden rounded-md">
+                                <Image
+                                    src="/icon.png"
+                                    alt="Logo"
+                                    fill
+                                    className="object-cover"
+                                />
+                            </div>
                             <span className="font-semibold text-white text-sm truncate max-w-[150px]">
                                 {session?.user?.laboratorioNombre || "Laboratorio"}
                             </span>
@@ -163,7 +171,14 @@ export function Navbar() {
                     <div className="flex flex-col h-full">
                         <div className="flex items-center justify-between h-16 px-4 border-b border-slate-800">
                             <div className="flex items-center gap-2">
-                                <FlaskConical className="h-6 w-6 text-blue-500" />
+                                <div className="relative h-8 w-8 overflow-hidden rounded-md">
+                                    <Image
+                                        src="/icon.png"
+                                        alt="Logo"
+                                        fill
+                                        className="object-cover"
+                                    />
+                                </div>
                                 <span className="font-bold text-white">San Martin Labs</span>
                             </div>
                             <button

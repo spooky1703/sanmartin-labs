@@ -23,8 +23,8 @@ async function main() {
         create: {
             id: "lab-demo-001",
             nombre: "Laboratorio San Martín",
-            direccion: "Av. Principal #123, Col. Centro, CP 12345",
-            telefono: "+52 55 1234 5678",
+            direccion: "AV. BENITO JUAREZ No. 3 COL CENTRO TLAHUELILPAN. HGO",
+            telefono: "763 788 0910 | Urgencias: 773 124 5856",
             email: "contacto@labsanmartin.com",
             activo: true,
         },

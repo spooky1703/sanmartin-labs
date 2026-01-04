@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import {
@@ -27,8 +28,13 @@ export function Sidebar() {
                 {/* Logo */}
                 <div className="flex h-16 shrink-0 items-center px-6 border-b border-slate-800">
                     <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600">
-                            <FlaskConical className="h-6 w-6 text-white" />
+                        <div className="relative h-10 w-10 overflow-hidden rounded-lg">
+                            <Image
+                                src="/icon.png"
+                                alt="Logo"
+                                fill
+                                className="object-cover"
+                            />
                         </div>
                         <span className="text-xl font-bold text-white">San Martin Labs</span>
                     </div>

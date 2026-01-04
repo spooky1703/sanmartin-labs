@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -60,8 +61,13 @@ export default function LoginPage() {
     return (
         <Card className="border-slate-700 bg-slate-800/50 backdrop-blur-sm shadow-2xl">
             <CardHeader className="space-y-4 text-center">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg">
-                    <FlaskConical className="h-8 w-8 text-white" />
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-lg relative overflow-hidden shadow-lg">
+                    <Image
+                        src="/icon.png"
+                        alt="Logo"
+                        fill
+                        className="object-cover"
+                    />
                 </div>
                 <div>
                     <CardTitle className="text-2xl font-bold text-white">
@@ -131,6 +137,6 @@ export default function LoginPage() {
                     </Button>
                 </form>
             </CardContent>
-        </Card>
+        </Card >
     );
 }

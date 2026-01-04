@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { consultaSchema, type ConsultaSchemaType } from "@/schemas/reporte.schema";
@@ -157,8 +158,13 @@ export default function ConsultaPage({
                         <CardContent className="pt-6">
                             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                                 <div className="flex items-center gap-4">
-                                    <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600">
-                                        <FlaskConical className="h-7 w-7 text-white" />
+                                    <div className="relative h-14 w-14 overflow-hidden rounded-xl bg-slate-800">
+                                        <Image
+                                            src="/icon.png"
+                                            alt="Logo Laboratorio"
+                                            fill
+                                            className="object-cover"
+                                        />
                                     </div>
                                     <div>
                                         <h1 className="text-xl font-bold text-white">
@@ -293,9 +299,17 @@ export default function ConsultaPage({
                     </Card>
 
                     {/* Footer */}
-                    <div className="text-center text-sm text-slate-500">
-                        <ShieldCheck className="inline h-4 w-4 mr-1" />
-                        Este resultado es verificado y emitido por {resultado.laboratorio.nombre}
+                    <div className="space-y-2 text-center">
+                        <div className="text-sm text-slate-500">
+                            <ShieldCheck className="inline h-4 w-4 mr-1" />
+                            Este resultado es verificado y emitido por {resultado.laboratorio.nombre}
+                        </div>
+                        <div className="text-xs text-slate-600">
+                            <p>AV. BENITO JUAREZ No. 3 COL CENTRO TLAHUELILPAN. HGO</p>
+                            <p className="mt-1">
+                                Tel: 763 788 0910 • Urgencias: 773 124 5856
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div >
