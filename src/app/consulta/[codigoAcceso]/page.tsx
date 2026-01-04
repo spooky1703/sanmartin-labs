@@ -21,7 +21,6 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import {
-    FlaskConical,
     Loader2,
     AlertCircle,
     CheckCircle,
@@ -323,8 +322,13 @@ export default function ConsultaPage({
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4">
             <Card className="w-full max-w-md bg-slate-800/50 border-slate-700 backdrop-blur-sm shadow-2xl">
                 <CardHeader className="text-center space-y-4">
-                    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg">
-                        <FlaskConical className="h-8 w-8 text-white" />
+                    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-lg relative overflow-hidden shadow-lg">
+                        <Image
+                            src="/icon.png"
+                            alt="Logo"
+                            fill
+                            className="object-cover"
+                        />
                     </div>
                     <div>
                         <CardTitle className="text-2xl font-bold text-white">
