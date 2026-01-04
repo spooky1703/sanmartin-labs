@@ -69,7 +69,7 @@ export function Sidebar() {
                 {/* Footer */}
                 <div className="px-4 py-4 border-t border-slate-800">
                     <p className="text-xs text-slate-500 text-center">
-                        © 2024 LabSystem
+                        © 2025 San Martin Labs
                     </p>
                 </div>
             </div>

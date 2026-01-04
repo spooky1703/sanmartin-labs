@@ -164,7 +164,7 @@ export function Navbar() {
                         <div className="flex items-center justify-between h-16 px-4 border-b border-slate-800">
                             <div className="flex items-center gap-2">
                                 <FlaskConical className="h-6 w-6 text-blue-500" />
-                                <span className="font-bold text-white">LabSystem</span>
+                                <span className="font-bold text-white">San Martin Labs</span>
                             </div>
                             <button
                                 type="button"
