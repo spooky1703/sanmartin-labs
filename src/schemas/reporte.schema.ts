@@ -12,6 +12,10 @@ export const reporteSchema = z.object({
         .min(1, "La fecha de expiración es requerida")
         .refine((val) => !isNaN(Date.parse(val)), "Fecha inválida")
         .refine((val) => new Date(val) > new Date(), "La fecha de expiración debe ser futura"),
+    emitidoPor: z
+        .string()
+        .min(1, "El nombre del responsable es requerido")
+        .max(200, "Nombre demasiado largo"),
 });
 
 export const consultaSchema = z.object({

@@ -144,6 +144,7 @@ export async function POST(request: NextRequest) {
                 laboratorioId: session.user.laboratorioId,
                 usuarioId: session.user.id,
                 fechaExpiracion: new Date(parsed.data.fechaExpiracion),
+                emitidoPor: parsed.data.emitidoPor,
                 estudios: {
                     create: parsed.data.estudiosIds.map((estudioId) => ({
                         estudioId,

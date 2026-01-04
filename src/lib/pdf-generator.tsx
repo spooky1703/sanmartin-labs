@@ -210,6 +210,35 @@ const styles = StyleSheet.create({
         fontSize: 7,
         color: "#6b7280",
     },
+    signatureSection: {
+        position: "absolute",
+        bottom: 80, // Account for template margin
+        left: 0,
+        right: 0,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        paddingTop: 20,
+    },
+    signatureLabel: {
+        fontSize: 9,
+        fontWeight: "bold",
+        color: "#374151",
+        marginBottom: 15,
+    },
+    signatureLine: {
+        borderTopWidth: 1,
+        borderTopColor: "#1f2937",
+        width: 250,
+        marginBottom: 8,
+    },
+    signatureText: {
+        fontSize: 8,
+        color: "#6b7280",
+        textAlign: "center",
+        fontWeight: "bold",
+        letterSpacing: 0.5,
+    },
 });
 
 interface Parametro {
@@ -316,11 +345,8 @@ export function ReportePDF({
 
                 <View style={styles.content}>
                     {/* Header Space - logo and info are in the template */}
-                    {/* We just need spacing to push content down below the template header */}
+                    {/* Reduced spacing since we removed the title */}
                     <View style={{ height: 80 }} />
-
-                    {/* Title */}
-                    <Text style={styles.reportTitle}>Reporte de Resultados</Text>
 
                     {/* Patient Info */}
                     {/* Patient Info and QR */}
@@ -335,14 +361,10 @@ export function ReportePDF({
                                 <Text style={styles.patientLabel}>Folio:</Text>
                                 <Text style={styles.patientValue}>{paciente.folio}</Text>
                             </View>
-                            {paciente.fechaNacimiento && (
-                                <View style={styles.patientRow}>
-                                    <Text style={styles.patientLabel}>Fecha Nac.:</Text>
-                                    <Text style={styles.patientValue}>
-                                        {formatDate(paciente.fechaNacimiento)}
-                                    </Text>
-                                </View>
-                            )}
+                            <View style={styles.patientRow}>
+                                <Text style={styles.patientLabel}>Emitido por:</Text>
+                                <Text style={styles.patientValue}>{emitidoPor}</Text>
+                            </View>
                             <View style={styles.patientRow}>
                                 <Text style={styles.patientLabel}>Fecha Emisión:</Text>
                                 <Text style={styles.patientValue}>{formatDate(fechaEmision)}</Text>
@@ -355,7 +377,6 @@ export function ReportePDF({
                             <Text style={styles.qrText}>
                                 Escanea para consultar
                             </Text>
-                            <Text style={styles.qrText}>Código: {codigoAcceso}</Text>
                         </View>
                     </View>
 
@@ -445,6 +466,11 @@ export function ReportePDF({
                     </View>
                 </View>
 
+                {/* Signature Section - Fixed at page footer */}
+                <View style={styles.signatureSection} fixed>
+                    <View style={styles.signatureLine} />
+                    <Text style={styles.signatureText}>FIRMA DE RESPONSABLE</Text>
+                </View>
 
             </Page>
         </Document>

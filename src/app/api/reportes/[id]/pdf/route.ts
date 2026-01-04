@@ -61,7 +61,7 @@ export async function GET(request: NextRequest, { params }: Params) {
             ReportePDF({
                 laboratorio: reporte.laboratorio,
                 paciente: reporte.paciente,
-                estudios: reporte.estudios.map((re) => ({
+                estudios: reporte.estudios.map((re: typeof reporte.estudios[number]) => ({
                     nombreEstudio: re.estudio.nombreEstudio,
                     fechaRealizacion: re.estudio.fechaRealizacion,
                     observaciones: re.estudio.observaciones,
@@ -70,7 +70,7 @@ export async function GET(request: NextRequest, { params }: Params) {
                 fechaEmision: reporte.fechaEmision,
                 codigoAcceso: reporte.codigoAcceso,
                 qrDataUrl,
-                emitidoPor: `${reporte.usuario.nombre} ${reporte.usuario.apellido}`,
+                emitidoPor: reporte.emitidoPor,
             })
         );
 

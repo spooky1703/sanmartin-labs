@@ -46,6 +46,7 @@ function NuevoReporteContent() {
     const [selectedPaciente, setSelectedPaciente] = useState<Paciente | null>(null);
     const [selectedEstudios, setSelectedEstudios] = useState<string[]>([]);
     const [fechaExpiracion, setFechaExpiracion] = useState(formatForInput(getDefaultExpirationDate()));
+    const [emitidoPor, setEmitidoPor] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [isFetching, setIsFetching] = useState(true);
@@ -118,6 +119,7 @@ function NuevoReporteContent() {
                     pacienteId: selectedPaciente.id,
                     estudiosIds: selectedEstudios,
                     fechaExpiracion,
+                    emitidoPor,
                 }),
             });
 
@@ -331,6 +333,35 @@ function NuevoReporteContent() {
                             min={formatForInput(new Date())}
                             className="mt-2 bg-slate-800 border-slate-700 text-white"
                         />
+                    </div>
+                </CardContent>
+            </Card>
+
+            {/* Emitido Por */}
+            <Card className="bg-slate-900 border-slate-800">
+                <CardHeader>
+                    <CardTitle className="text-white flex items-center gap-2">
+                        <User className="h-5 w-5 text-purple-500" />
+                        4. Responsable del Reporte
+                    </CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <div className="max-w-md">
+                        <Label htmlFor="emitidoPor" className="text-slate-300">
+                            Nombre completo del responsable:
+                        </Label>
+                        <Input
+                            id="emitidoPor"
+                            type="text"
+                            placeholder="Ej: Dr. Juan Pérez García"
+                            value={emitidoPor}
+                            onChange={(e) => setEmitidoPor(e.target.value)}
+                            className="mt-2 bg-slate-800 border-slate-700 text-white"
+                            maxLength={200}
+                        />
+                        <p className="text-xs text-slate-500 mt-1">
+                            Este nombre aparecerá en el PDF del reporte
+                        </p>
                     </div>
                 </CardContent>
             </Card>

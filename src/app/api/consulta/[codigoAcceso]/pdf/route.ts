@@ -74,7 +74,7 @@ export async function GET(request: NextRequest, { params }: Params) {
                 fechaEmision: reporte.fechaEmision,
                 codigoAcceso: reporte.codigoAcceso,
                 qrDataUrl,
-                emitidoPor: `${reporte.usuario.nombre} ${reporte.usuario.apellido}`,
+                emitidoPor: reporte.emitidoPor,
             })
         );
 
