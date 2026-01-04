@@ -69,6 +69,8 @@ model Paciente {
 
   @@unique([laboratorioId, folio])
   @@map("pacientes")
+  @@index([nombre, apellidoPaterno])
+  @@index([laboratorioId])
 }
 
 model Estudio {
@@ -123,6 +125,9 @@ model Reporte {
   estudios    ReporteEstudio[]
 
   @@map("reportes")
+  @@index([fechaEmision])
+  @@index([emitidoPor])
+  @@index([laboratorioId])
 }
 
 model ReporteEstudio {
