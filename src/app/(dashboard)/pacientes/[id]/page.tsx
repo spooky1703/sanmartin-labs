@@ -80,20 +80,22 @@ export default async function PacienteDetailPage({ params }: PageProps) {
                         variant="ghost"
                         size="icon"
                         asChild
-                        className="text-slate-400 hover:text-white"
+                        className="text-muted-foreground hover:text-foreground"
                     >
                         <Link href="/pacientes">
                             <ArrowLeft className="h-5 w-5" />
                         </Link>
                     </Button>
                     <div>
-                        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-                            <User className="h-6 w-6 text-blue-500" />
+                        <h1 className="text-2xl font-light text-foreground flex items-center gap-2">
+                            <div className="p-2 rounded-lg bg-muted">
+                                <User className="h-5 w-5" />
+                            </div>
                             {getNombreCompleto()}
                         </h1>
                         <Badge
                             variant="outline"
-                            className="mt-1 font-mono text-blue-400 border-blue-500/30 bg-blue-500/10"
+                            className="mt-1 font-mono"
                         >
                             Folio: {paciente.folio}
                         </Badge>
@@ -103,7 +105,6 @@ export default async function PacienteDetailPage({ params }: PageProps) {
                     <Button
                         variant="outline"
                         asChild
-                        className="border-blue-500/30 text-blue-400 hover:bg-blue-500/10"
                     >
                         <a href={`/pacientes/${id}/editar`}>
                             <Edit className="mr-2 h-4 w-4" />
@@ -113,17 +114,13 @@ export default async function PacienteDetailPage({ params }: PageProps) {
                     <Button
                         variant="outline"
                         asChild
-                        className="border-slate-700 hover:bg-slate-800"
                     >
                         <Link href={`/pacientes/${id}/estudios/nuevo`}>
                             <Plus className="mr-2 h-4 w-4" />
                             Nuevo Estudio
                         </Link>
                     </Button>
-                    <Button
-                        asChild
-                        className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700"
-                    >
+                    <Button asChild>
                         <Link href={`/reportes/nuevo?pacienteId=${id}`}>
                             <FileText className="mr-2 h-4 w-4" />
                             Emitir Reporte
@@ -134,15 +131,15 @@ export default async function PacienteDetailPage({ params }: PageProps) {
 
             <div className="grid gap-6 lg:grid-cols-3">
                 {/* Patient Info */}
-                <Card className="bg-slate-900 border-slate-800 lg:col-span-1">
+                <Card className="card-elevated lg:col-span-1">
                     <CardHeader>
-                        <CardTitle className="text-white flex items-center justify-between">
+                        <CardTitle className="text-foreground flex items-center justify-between">
                             Información Personal
                             <a href={`/pacientes/${id}/editar`}>
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    className="text-slate-400 hover:text-white"
+                                    className="text-muted-foreground hover:text-foreground"
                                 >
                                     <Edit className="h-4 w-4" />
                                 </Button>
@@ -150,10 +147,10 @@ export default async function PacienteDetailPage({ params }: PageProps) {
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                        <div className="flex items-center gap-3 text-slate-300">
-                            <Calendar className="h-4 w-4 text-slate-500" />
+                        <div className="flex items-center gap-3 text-foreground">
+                            <Calendar className="h-4 w-4 text-muted-foreground" />
                             <div>
-                                <p className="text-xs text-slate-500">Fecha de Nacimiento</p>
+                                <p className="text-xs text-muted-foreground">Fecha de Nacimiento</p>
                                 <p>
                                     {paciente.fechaNacimiento
                                         ? `${formatDate(paciente.fechaNacimiento)} (${calculateAge(paciente.fechaNacimiento)} años)`
@@ -162,46 +159,48 @@ export default async function PacienteDetailPage({ params }: PageProps) {
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-3 text-slate-300">
-                            <User className="h-4 w-4 text-slate-500" />
+                        <div className="flex items-center gap-3 text-foreground">
+                            <User className="h-4 w-4 text-muted-foreground" />
                             <div>
-                                <p className="text-xs text-slate-500">Género</p>
+                                <p className="text-xs text-muted-foreground">Género</p>
                                 <p>{getGeneroLabel()}</p>
                             </div>
                         </div>
 
                         {paciente.telefono && (
-                            <div className="flex items-center gap-3 text-slate-300">
-                                <Phone className="h-4 w-4 text-slate-500" />
+                            <div className="flex items-center gap-3 text-foreground">
+                                <Phone className="h-4 w-4 text-muted-foreground" />
                                 <div>
-                                    <p className="text-xs text-slate-500">Teléfono</p>
+                                    <p className="text-xs text-muted-foreground">Teléfono</p>
                                     <p>{paciente.telefono}</p>
                                 </div>
                             </div>
                         )}
 
                         {paciente.email && (
-                            <div className="flex items-center gap-3 text-slate-300">
-                                <Mail className="h-4 w-4 text-slate-500" />
+                            <div className="flex items-center gap-3 text-foreground">
+                                <Mail className="h-4 w-4 text-muted-foreground" />
                                 <div>
-                                    <p className="text-xs text-slate-500">Email</p>
+                                    <p className="text-xs text-muted-foreground">Email</p>
                                     <p>{paciente.email}</p>
                                 </div>
                             </div>
                         )}
 
-                        <div className="pt-4 border-t border-slate-800">
-                            <p className="text-xs text-slate-500">Registrado</p>
-                            <p className="text-slate-300">{formatDate(paciente.createdAt)}</p>
+                        <div className="pt-4 border-t border-border">
+                            <p className="text-xs text-muted-foreground">Registrado</p>
+                            <p className="text-foreground">{formatDate(paciente.createdAt)}</p>
                         </div>
                     </CardContent>
                 </Card>
 
                 {/* Studies */}
-                <Card className="bg-slate-900 border-slate-800 lg:col-span-2">
+                <Card className="card-elevated lg:col-span-2">
                     <CardHeader>
-                        <CardTitle className="text-white flex items-center gap-2">
-                            <ClipboardList className="h-5 w-5 text-blue-500" />
+                        <CardTitle className="text-foreground flex items-center gap-2">
+                            <div className="p-1.5 rounded-lg bg-muted">
+                                <ClipboardList className="h-4 w-4" />
+                            </div>
                             Estudios Clínicos
                             <Badge variant="secondary" className="ml-2">
                                 {paciente.estudios.length}
@@ -211,12 +210,12 @@ export default async function PacienteDetailPage({ params }: PageProps) {
                     <CardContent>
                         {paciente.estudios.length === 0 ? (
                             <div className="text-center py-8">
-                                <ClipboardList className="h-12 w-12 mx-auto text-slate-600 mb-4" />
-                                <p className="text-slate-400">No hay estudios registrados</p>
+                                <ClipboardList className="h-12 w-12 mx-auto text-muted-foreground/50 mb-4" />
+                                <p className="text-muted-foreground">No hay estudios registrados</p>
                                 <Button
                                     variant="outline"
                                     asChild
-                                    className="mt-4 border-slate-700"
+                                    className="mt-4"
                                 >
                                     <Link href={`/pacientes/${id}/estudios/nuevo`}>
                                         <Plus className="mr-2 h-4 w-4" />
@@ -229,23 +228,23 @@ export default async function PacienteDetailPage({ params }: PageProps) {
                                 {paciente.estudios.map((estudio: any) => (
                                     <div
                                         key={estudio.id}
-                                        className="p-4 rounded-lg bg-slate-800/50 border border-slate-700 hover:border-slate-600 transition-colors"
+                                        className="p-4 rounded-lg bg-muted/50 border border-border hover:border-primary/30 transition-colors"
                                     >
                                         <div className="flex justify-between items-start">
                                             <div>
-                                                <h3 className="font-semibold text-white">
+                                                <h3 className="font-medium text-foreground">
                                                     {estudio.nombreEstudio}
                                                 </h3>
-                                                <p className="text-sm text-slate-400">
+                                                <p className="text-sm text-muted-foreground">
                                                     {formatDate(estudio.fechaRealizacion)}
                                                 </p>
                                             </div>
-                                            <Badge variant="outline" className="text-slate-400 border-slate-600">
+                                            <Badge variant="outline">
                                                 {estudio.parametros.length} parámetros
                                             </Badge>
                                         </div>
                                         {estudio.observaciones && (
-                                            <p className="mt-2 text-sm text-slate-400">
+                                            <p className="mt-2 text-sm text-muted-foreground">
                                                 {estudio.observaciones}
                                             </p>
                                         )}
@@ -255,11 +254,11 @@ export default async function PacienteDetailPage({ params }: PageProps) {
                                             {estudio.parametros.slice(0, 6).map((param: any) => (
                                                 <div
                                                     key={param.id}
-                                                    className="text-xs bg-slate-900 px-2 py-1 rounded"
+                                                    className="text-xs bg-background px-2 py-1 rounded border border-border"
                                                 >
-                                                    <span className="text-slate-500">{param.nombreParametro}:</span>
-                                                    <span className="ml-1 text-white">{param.valor}</span>
-                                                    <span className="text-slate-600 ml-1">{param.unidad}</span>
+                                                    <span className="text-muted-foreground">{param.nombreParametro}:</span>
+                                                    <span className="ml-1 text-foreground">{param.valor}</span>
+                                                    <span className="text-muted-foreground/70 ml-1">{param.unidad}</span>
                                                 </div>
                                             ))}
                                         </div>
@@ -273,3 +272,4 @@ export default async function PacienteDetailPage({ params }: PageProps) {
         </div>
     );
 }
+

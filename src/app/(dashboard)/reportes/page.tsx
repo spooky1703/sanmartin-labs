@@ -60,20 +60,20 @@ export default async function ReportesPage({ searchParams }: PageProps) {
     const getStatusBadge = (reporte: typeof reportes[0]) => {
         if (!reporte.vigente) {
             return (
-                <Badge variant="outline" className="border-red-500/30 bg-red-500/10 text-red-400">
+                <Badge variant="outline" className="border-destructive/30 bg-destructive/10 text-destructive">
                     Invalidado
                 </Badge>
             );
         }
         if (isReportExpired(reporte.fechaExpiracion)) {
             return (
-                <Badge variant="outline" className="border-amber-500/30 bg-amber-500/10 text-amber-400">
+                <Badge variant="outline" className="border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400">
                     Expirado
                 </Badge>
             );
         }
         return (
-            <Badge variant="outline" className="border-blue-500/30 bg-blue-500/10 text-blue-400">
+            <Badge variant="outline" className="border-primary/30 bg-primary/10 text-primary">
                 Vigente
             </Badge>
         );
@@ -84,19 +84,18 @@ export default async function ReportesPage({ searchParams }: PageProps) {
             {/* Header */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-white flex items-center gap-3">
-                        <FileText className="h-8 w-8 text-purple-500" />
+                    <h1 className="text-2xl font-light text-foreground flex items-center gap-3">
+                        <div className="p-2 rounded-lg bg-muted">
+                            <FileText className="h-6 w-6" />
+                        </div>
                         Reportes
                     </h1>
-                    <p className="text-slate-400 mt-1">
+                    <p className="text-muted-foreground mt-1">
                         {total} reporte{total !== 1 ? "s" : ""} emitido{total !== 1 ? "s" : ""}
                     </p>
                 </div>
                 {["ADMIN", "SUPERVISOR"].includes(session.user.rol) && (
-                    <Button
-                        asChild
-                        className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700"
-                    >
+                    <Button asChild>
                         <Link href="/reportes/nuevo">
                             <Plus className="mr-2 h-4 w-4" />
                             Nuevo Reporte
@@ -106,42 +105,42 @@ export default async function ReportesPage({ searchParams }: PageProps) {
             </div>
 
             {/* Table */}
-            <div className="rounded-lg border border-slate-800 overflow-hidden">
+            <div className="rounded-lg border border-border overflow-hidden">
                 <Table>
                     <TableHeader>
-                        <TableRow className="border-slate-800 hover:bg-transparent">
-                            <TableHead className="text-slate-400">Paciente</TableHead>
-                            <TableHead className="text-slate-400 hidden md:table-cell">Estudios</TableHead>
-                            <TableHead className="text-slate-400 hidden md:table-cell">Fecha</TableHead>
-                            <TableHead className="text-slate-400">Estado</TableHead>
-                            <TableHead className="text-slate-400 hidden lg:table-cell">Emitido por</TableHead>
-                            <TableHead className="text-slate-400 text-right">Acciones</TableHead>
+                        <TableRow className="border-border hover:bg-transparent">
+                            <TableHead className="text-muted-foreground">Paciente</TableHead>
+                            <TableHead className="text-muted-foreground hidden md:table-cell">Estudios</TableHead>
+                            <TableHead className="text-muted-foreground hidden md:table-cell">Fecha</TableHead>
+                            <TableHead className="text-muted-foreground">Estado</TableHead>
+                            <TableHead className="text-muted-foreground hidden lg:table-cell">Emitido por</TableHead>
+                            <TableHead className="text-muted-foreground text-right">Acciones</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {reportes.map((reporte: any) => (
-                            <TableRow key={reporte.id} className="border-slate-800 hover:bg-slate-900/50">
+                            <TableRow key={reporte.id} className="border-border hover:bg-muted/50">
                                 <TableCell>
                                     <div>
-                                        <p className="text-white font-medium">
+                                        <p className="text-foreground font-medium">
                                             {reporte.paciente.nombre} {reporte.paciente.apellidoPaterno}
                                         </p>
                                         <Badge
                                             variant="outline"
-                                            className="font-mono text-xs text-blue-400 border-blue-500/30 bg-blue-500/10"
+                                            className="font-mono text-xs"
                                         >
                                             {reporte.paciente.folio}
                                         </Badge>
                                     </div>
                                 </TableCell>
-                                <TableCell className="text-slate-400 hidden md:table-cell">
+                                <TableCell className="text-muted-foreground hidden md:table-cell">
                                     {reporte._count.estudios} estudio{reporte._count.estudios !== 1 ? "s" : ""}
                                 </TableCell>
-                                <TableCell className="text-slate-400 hidden md:table-cell">
+                                <TableCell className="text-muted-foreground hidden md:table-cell">
                                     {formatDate(reporte.fechaEmision)}
                                 </TableCell>
                                 <TableCell>{getStatusBadge(reporte)}</TableCell>
-                                <TableCell className="text-slate-400 hidden lg:table-cell">
+                                <TableCell className="text-muted-foreground hidden lg:table-cell">
                                     {reporte.usuario.nombre} {reporte.usuario.apellido}
                                 </TableCell>
                                 <TableCell className="text-right">
@@ -150,7 +149,7 @@ export default async function ReportesPage({ searchParams }: PageProps) {
                                             variant="ghost"
                                             size="icon"
                                             asChild
-                                            className="text-slate-400 hover:text-white hover:bg-slate-800"
+                                            className="text-muted-foreground hover:text-foreground"
                                         >
                                             <Link href={`/reportes/${reporte.id}`}>
                                                 <Eye className="h-4 w-4" />
@@ -160,7 +159,7 @@ export default async function ReportesPage({ searchParams }: PageProps) {
                                             variant="ghost"
                                             size="icon"
                                             asChild
-                                            className="text-slate-400 hover:text-white hover:bg-slate-800"
+                                            className="text-muted-foreground hover:text-foreground"
                                         >
                                             <a href={`/api/reportes/${reporte.id}/pdf`} target="_blank">
                                                 <Download className="h-4 w-4" />
@@ -176,8 +175,8 @@ export default async function ReportesPage({ searchParams }: PageProps) {
 
             {reportes.length === 0 && (
                 <div className="text-center py-12">
-                    <FileText className="h-12 w-12 mx-auto text-slate-600 mb-4" />
-                    <p className="text-slate-400 text-lg">No hay reportes emitidos</p>
+                    <FileText className="h-12 w-12 mx-auto text-muted-foreground/50 mb-4" />
+                    <p className="text-muted-foreground text-lg">No hay reportes emitidos</p>
                 </div>
             )}
 
@@ -185,15 +184,15 @@ export default async function ReportesPage({ searchParams }: PageProps) {
             {totalPages > 1 && (
                 <div className="flex justify-center gap-2">
                     {page > 1 && (
-                        <Button variant="outline" asChild className="border-slate-700 hover:bg-slate-800">
+                        <Button variant="outline" asChild>
                             <Link href={`/reportes?page=${page - 1}`}>Anterior</Link>
                         </Button>
                     )}
-                    <span className="flex items-center px-4 text-slate-400">
+                    <span className="flex items-center px-4 text-muted-foreground">
                         Página {page} de {totalPages}
                     </span>
                     {page < totalPages && (
-                        <Button variant="outline" asChild className="border-slate-700 hover:bg-slate-800">
+                        <Button variant="outline" asChild>
                             <Link href={`/reportes?page=${page + 1}`}>Siguiente</Link>
                         </Button>
                     )}
@@ -202,3 +201,4 @@ export default async function ReportesPage({ searchParams }: PageProps) {
         </div>
     );
 }
+

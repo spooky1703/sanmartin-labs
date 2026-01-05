@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { LogOut, User, Menu, FlaskConical } from "lucide-react";
+import { LogOut, User, Menu, X } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -25,6 +25,7 @@ import {
     ClipboardList,
     LayoutDashboard,
 } from "lucide-react";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 const navigation = [
     { name: "Dashboard", href: "/", icon: LayoutDashboard },
@@ -61,29 +62,16 @@ export function Navbar() {
         }
     };
 
-    const getRolColor = (rol?: string) => {
-        switch (rol) {
-            case "ADMIN":
-                return "bg-red-500/20 text-red-400 border-red-500/30";
-            case "SUPERVISOR":
-                return "bg-amber-500/20 text-amber-400 border-amber-500/30";
-            case "TECNICO":
-                return "bg-blue-500/20 text-blue-400 border-blue-500/30";
-            default:
-                return "bg-slate-500/20 text-slate-400 border-slate-500/30";
-        }
-    };
-
     return (
         <>
-            <nav className="sticky top-0 z-40 bg-slate-900/95 backdrop-blur border-b border-slate-800">
+            <nav className="sticky top-0 z-40 bg-background/95 backdrop-blur border-b border-border">
                 <div className="px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 items-center justify-between">
                         {/* Mobile menu button */}
                         <div className="flex lg:hidden">
                             <button
                                 type="button"
-                                className="text-slate-400 hover:text-white"
+                                className="text-muted-foreground hover:text-foreground transition-colors"
                                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             >
                                 <Menu className="h-6 w-6" />
@@ -92,7 +80,7 @@ export function Navbar() {
 
                         {/* Lab name - visible on mobile */}
                         <div className="flex lg:hidden items-center gap-2">
-                            <div className="relative h-6 w-6 overflow-hidden rounded-md">
+                            <div className="relative h-6 w-6 overflow-hidden rounded-md border border-border">
                                 <Image
                                     src="/icon.png"
                                     alt="Logo"
@@ -100,59 +88,61 @@ export function Navbar() {
                                     className="object-cover"
                                 />
                             </div>
-                            <span className="font-semibold text-white text-sm truncate max-w-[150px]">
+                            <span className="font-medium text-foreground text-sm truncate max-w-[150px]">
                                 {session?.user?.laboratorioNombre || "Laboratorio"}
                             </span>
                         </div>
 
                         {/* Lab name - visible on desktop */}
                         <div className="hidden lg:flex items-center">
-                            <h1 className="text-lg font-semibold text-white">
+                            <h1 className="text-base font-medium text-foreground">
                                 {session?.user?.laboratorioNombre || "Sistema de Laboratorio"}
                             </h1>
                         </div>
 
-                        {/* User menu */}
-                        <div className="flex items-center gap-4">
-                            <Badge variant="outline" className={cn("hidden sm:inline-flex", getRolColor(session?.user?.rol))}>
+                        {/* Right side: Theme toggle + User menu */}
+                        <div className="flex items-center gap-3">
+                            <Badge variant="outline" className="hidden sm:inline-flex border-border text-muted-foreground">
                                 {getRolLabel(session?.user?.rol)}
                             </Badge>
+
+                            <ThemeToggle />
 
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <Button
                                         variant="ghost"
-                                        className="relative h-10 w-10 rounded-full ring-2 ring-slate-700 hover:ring-blue-500/50 transition-all"
+                                        className="relative h-9 w-9 rounded-full border border-border hover:border-foreground/20 transition-all"
                                     >
-                                        <Avatar className="h-10 w-10">
-                                            <AvatarFallback className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white font-medium">
+                                        <Avatar className="h-9 w-9">
+                                            <AvatarFallback className="bg-primary text-primary-foreground text-sm font-medium">
                                                 {getInitials(session?.user?.nombre, session?.user?.apellido)}
                                             </AvatarFallback>
                                         </Avatar>
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent
-                                    className="w-56 bg-slate-800 border-slate-700"
+                                    className="w-56 bg-popover border-border"
                                     align="end"
                                 >
-                                    <DropdownMenuLabel className="text-slate-200">
+                                    <DropdownMenuLabel className="text-foreground">
                                         <div className="flex flex-col space-y-1">
                                             <p className="text-sm font-medium">
                                                 {session?.user?.nombre} {session?.user?.apellido}
                                             </p>
-                                            <p className="text-xs text-slate-400">
+                                            <p className="text-xs text-muted-foreground">
                                                 {session?.user?.email}
                                             </p>
                                         </div>
                                     </DropdownMenuLabel>
-                                    <DropdownMenuSeparator className="bg-slate-700" />
-                                    <DropdownMenuItem className="text-slate-300 focus:bg-slate-700 focus:text-white cursor-pointer">
+                                    <DropdownMenuSeparator className="bg-border" />
+                                    <DropdownMenuItem className="text-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer">
                                         <User className="mr-2 h-4 w-4" />
                                         <span>Mi Perfil</span>
                                     </DropdownMenuItem>
-                                    <DropdownMenuSeparator className="bg-slate-700" />
+                                    <DropdownMenuSeparator className="bg-border" />
                                     <DropdownMenuItem
-                                        className="text-red-400 focus:bg-red-500/20 focus:text-red-400 cursor-pointer"
+                                        className="text-destructive focus:bg-destructive/10 focus:text-destructive cursor-pointer"
                                         onClick={handleSignOut}
                                     >
                                         <LogOut className="mr-2 h-4 w-4" />
@@ -167,11 +157,11 @@ export function Navbar() {
 
             {/* Mobile navigation menu */}
             {mobileMenuOpen && (
-                <div className="lg:hidden fixed inset-0 z-50 bg-slate-900/95 backdrop-blur-sm">
+                <div className="lg:hidden fixed inset-0 z-50 bg-background/95 backdrop-blur-sm">
                     <div className="flex flex-col h-full">
-                        <div className="flex items-center justify-between h-16 px-4 border-b border-slate-800">
+                        <div className="flex items-center justify-between h-16 px-4 border-b border-border">
                             <div className="flex items-center gap-2">
-                                <div className="relative h-8 w-8 overflow-hidden rounded-md">
+                                <div className="relative h-8 w-8 overflow-hidden rounded-md border border-border">
                                     <Image
                                         src="/icon.png"
                                         alt="Logo"
@@ -179,14 +169,14 @@ export function Navbar() {
                                         className="object-cover"
                                     />
                                 </div>
-                                <span className="font-bold text-white">San Martin Labs</span>
+                                <span className="font-medium text-foreground">San Martin Labs</span>
                             </div>
                             <button
                                 type="button"
-                                className="text-slate-400 hover:text-white"
+                                className="text-muted-foreground hover:text-foreground transition-colors"
                                 onClick={() => setMobileMenuOpen(false)}
                             >
-                                <span className="text-2xl">×</span>
+                                <X className="h-6 w-6" />
                             </button>
                         </div>
                         <nav className="flex-1 px-4 py-6">
@@ -203,8 +193,8 @@ export function Navbar() {
                                                 className={cn(
                                                     "flex items-center gap-3 rounded-lg px-4 py-3 text-base font-medium transition-colors",
                                                     isActive
-                                                        ? "bg-blue-500/20 text-blue-400"
-                                                        : "text-slate-400 hover:bg-slate-800 hover:text-white"
+                                                        ? "bg-primary text-primary-foreground"
+                                                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                                                 )}
                                             >
                                                 <item.icon className="h-5 w-5" />
@@ -221,3 +211,4 @@ export function Navbar() {
         </>
     );
 }
+

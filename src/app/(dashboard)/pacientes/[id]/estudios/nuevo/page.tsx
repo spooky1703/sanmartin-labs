@@ -7,7 +7,7 @@ import { EstudioSchemaType } from "@/schemas/estudio.schema";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, ClipboardList, AlertCircle, User } from "lucide-react";
+import { ArrowLeft, ClipboardList, AlertCircle, User, Loader2 } from "lucide-react";
 import Link from "next/link";
 
 interface Paciente {
@@ -92,7 +92,7 @@ export default function NuevoEstudioPage({
     if (isFetching) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
             </div>
         );
     }
@@ -105,24 +105,26 @@ export default function NuevoEstudioPage({
                     variant="ghost"
                     size="icon"
                     asChild
-                    className="text-slate-400 hover:text-white"
+                    className="text-muted-foreground hover:text-foreground"
                 >
                     <Link href={`/pacientes/${pacienteId}`}>
                         <ArrowLeft className="h-5 w-5" />
                     </Link>
                 </Button>
                 <div>
-                    <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-                        <ClipboardList className="h-6 w-6 text-blue-500" />
+                    <h1 className="text-2xl font-light text-foreground flex items-center gap-2">
+                        <div className="p-2 rounded-lg bg-muted">
+                            <ClipboardList className="h-5 w-5" />
+                        </div>
                         Nuevo Estudio
                     </h1>
                     {paciente && (
                         <div className="flex items-center gap-2 mt-1">
-                            <User className="h-4 w-4 text-slate-500" />
-                            <span className="text-slate-400">{getNombreCompleto()}</span>
+                            <User className="h-4 w-4 text-muted-foreground" />
+                            <span className="text-muted-foreground">{getNombreCompleto()}</span>
                             <Badge
                                 variant="outline"
-                                className="font-mono text-blue-400 border-blue-500/30 bg-blue-500/10"
+                                className="font-mono"
                             >
                                 {paciente.folio}
                             </Badge>
@@ -133,7 +135,7 @@ export default function NuevoEstudioPage({
 
             {/* Error Alert */}
             {error && (
-                <Alert variant="destructive" className="bg-red-900/50 border-red-800">
+                <Alert variant="destructive">
                     <AlertCircle className="h-4 w-4" />
                     <AlertDescription>{error}</AlertDescription>
                 </Alert>
@@ -148,3 +150,4 @@ export default function NuevoEstudioPage({
         </div>
     );
 }
+

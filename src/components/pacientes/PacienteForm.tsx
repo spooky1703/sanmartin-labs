@@ -59,20 +59,19 @@ export function PacienteForm({
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            <Card className="bg-slate-900 border-slate-800">
+            <Card className="card-elevated">
                 <CardHeader>
-                    <CardTitle className="text-white">Información del Paciente</CardTitle>
+                    <CardTitle className="text-foreground">Información del Paciente</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                     {/* Folio */}
                     <div className="space-y-2">
-                        <Label htmlFor="folio" className="text-slate-300">
-                            Folio <span className="text-red-400">*</span>
+                        <Label htmlFor="folio" className="text-foreground">
+                            Folio <span className="text-destructive">*</span>
                         </Label>
                         <div className="flex gap-2">
                             <Input
                                 id="folio"
-                                className="bg-slate-800 border-slate-700 text-white"
                                 {...register("folio")}
                                 disabled={isLoading}
                             />
@@ -81,64 +80,60 @@ export function PacienteForm({
                                 variant="outline"
                                 size="icon"
                                 onClick={regenerateFolio}
-                                className="border-slate-700 hover:bg-slate-800"
                                 disabled={isLoading}
                             >
                                 <RefreshCw className="h-4 w-4" />
                             </Button>
                         </div>
                         {errors.folio && (
-                            <p className="text-sm text-red-400">{errors.folio.message}</p>
+                            <p className="text-sm text-destructive">{errors.folio.message}</p>
                         )}
                     </div>
 
                     {/* Nombre completo */}
                     <div className="grid gap-4 md:grid-cols-3">
                         <div className="space-y-2">
-                            <Label htmlFor="nombre" className="text-slate-300">
-                                Nombre(s) <span className="text-red-400">*</span>
+                            <Label htmlFor="nombre" className="text-foreground">
+                                Nombre(s) <span className="text-destructive">*</span>
                             </Label>
                             <Input
                                 id="nombre"
                                 placeholder="Juan"
-                                className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
                                 {...register("nombre")}
                                 disabled={isLoading}
                             />
                             {errors.nombre && (
-                                <p className="text-sm text-red-400">{errors.nombre.message}</p>
+                                <p className="text-sm text-destructive">{errors.nombre.message}</p>
                             )}
                         </div>
 
                         <div className="space-y-2">
-                            <Label htmlFor="apellidoPaterno" className="text-slate-300">
-                                Apellido Paterno <span className="text-red-400">*</span>
+                            <Label htmlFor="apellidoPaterno" className="text-foreground">
+                                Apellido Paterno <span className="text-destructive">*</span>
                             </Label>
                             <Input
                                 id="apellidoPaterno"
                                 placeholder="Pérez"
-                                className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
                                 {...register("apellidoPaterno")}
                                 disabled={isLoading}
                             />
                             {errors.apellidoPaterno && (
-                                <p className="text-sm text-red-400">{errors.apellidoPaterno.message}</p>
+                                <p className="text-sm text-destructive">{errors.apellidoPaterno.message}</p>
                             )}
                         </div>
 
                         <div className="space-y-2">
-                            <Label htmlFor="apellidoMaterno" className="text-slate-300">
+                            <Label htmlFor="apellidoMaterno" className="text-foreground">
                                 Apellido Materno
                             </Label>
                             <Input
                                 id="apellidoMaterno"
                                 placeholder="García"
-                                className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
                                 {...register("apellidoMaterno")}
                                 disabled={isLoading}
                             />
                             {errors.apellidoMaterno && (
-                                <p className="text-sm text-red-400">{errors.apellidoMaterno.message}</p>
+                                <p className="text-sm text-destructive">{errors.apellidoMaterno.message}</p>
                             )}
                         </div>
                     </div>
@@ -146,23 +141,22 @@ export function PacienteForm({
                     {/* Fecha de nacimiento y género */}
                     <div className="grid gap-4 md:grid-cols-2">
                         <div className="space-y-2">
-                            <Label htmlFor="fechaNacimiento" className="text-slate-300">
+                            <Label htmlFor="fechaNacimiento" className="text-foreground">
                                 Fecha de Nacimiento
                             </Label>
                             <Input
                                 id="fechaNacimiento"
                                 type="date"
-                                className="bg-slate-800 border-slate-700 text-white"
                                 {...register("fechaNacimiento")}
                                 disabled={isLoading}
                             />
                             {errors.fechaNacimiento && (
-                                <p className="text-sm text-red-400">{errors.fechaNacimiento.message}</p>
+                                <p className="text-sm text-destructive">{errors.fechaNacimiento.message}</p>
                             )}
                         </div>
 
                         <div className="space-y-2">
-                            <Label htmlFor="genero" className="text-slate-300">
+                            <Label htmlFor="genero" className="text-foreground">
                                 Género
                             </Label>
                             <Select
@@ -170,17 +164,17 @@ export function PacienteForm({
                                 onValueChange={(value) => setValue("genero", value)}
                                 disabled={isLoading}
                             >
-                                <SelectTrigger className="bg-slate-800 border-slate-700 text-white">
+                                <SelectTrigger>
                                     <SelectValue placeholder="Seleccionar género" />
                                 </SelectTrigger>
-                                <SelectContent className="bg-slate-800 border-slate-700">
-                                    <SelectItem value="M" className="text-white hover:bg-slate-700">Masculino</SelectItem>
-                                    <SelectItem value="F" className="text-white hover:bg-slate-700">Femenino</SelectItem>
-                                    <SelectItem value="O" className="text-white hover:bg-slate-700">Otro</SelectItem>
+                                <SelectContent>
+                                    <SelectItem value="M">Masculino</SelectItem>
+                                    <SelectItem value="F">Femenino</SelectItem>
+                                    <SelectItem value="O">Otro</SelectItem>
                                 </SelectContent>
                             </Select>
                             {errors.genero && (
-                                <p className="text-sm text-red-400">{errors.genero.message}</p>
+                                <p className="text-sm text-destructive">{errors.genero.message}</p>
                             )}
                         </div>
                     </div>
@@ -188,36 +182,34 @@ export function PacienteForm({
                     {/* Contacto */}
                     <div className="grid gap-4 md:grid-cols-2">
                         <div className="space-y-2">
-                            <Label htmlFor="telefono" className="text-slate-300">
+                            <Label htmlFor="telefono" className="text-foreground">
                                 Teléfono
                             </Label>
                             <Input
                                 id="telefono"
                                 type="tel"
                                 placeholder="+52 55 1234 5678"
-                                className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
                                 {...register("telefono")}
                                 disabled={isLoading}
                             />
                             {errors.telefono && (
-                                <p className="text-sm text-red-400">{errors.telefono.message}</p>
+                                <p className="text-sm text-destructive">{errors.telefono.message}</p>
                             )}
                         </div>
 
                         <div className="space-y-2">
-                            <Label htmlFor="email" className="text-slate-300">
+                            <Label htmlFor="email" className="text-foreground">
                                 Email
                             </Label>
                             <Input
                                 id="email"
                                 type="email"
                                 placeholder="paciente@email.com"
-                                className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
                                 {...register("email")}
                                 disabled={isLoading}
                             />
                             {errors.email && (
-                                <p className="text-sm text-red-400">{errors.email.message}</p>
+                                <p className="text-sm text-destructive">{errors.email.message}</p>
                             )}
                         </div>
                     </div>
@@ -227,7 +219,6 @@ export function PacienteForm({
             <div className="flex justify-end gap-4">
                 <Button
                     type="submit"
-                    className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700"
                     disabled={isLoading}
                 >
                     {isLoading ? (
@@ -243,3 +234,4 @@ export function PacienteForm({
         </form>
     );
 }
+

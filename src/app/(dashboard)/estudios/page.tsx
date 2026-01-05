@@ -69,59 +69,61 @@ export default async function EstudiosPage({ searchParams }: PageProps) {
             {/* Header */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-white flex items-center gap-3">
-                        <ClipboardList className="h-8 w-8 text-blue-500" />
+                    <h1 className="text-2xl font-light text-foreground flex items-center gap-3">
+                        <div className="p-2 rounded-lg bg-muted">
+                            <ClipboardList className="h-6 w-6" />
+                        </div>
                         Estudios
                     </h1>
-                    <p className="text-slate-400 mt-1">
+                    <p className="text-muted-foreground mt-1">
                         {total} estudio{total !== 1 ? "s" : ""} registrado{total !== 1 ? "s" : ""}
                     </p>
                 </div>
             </div>
 
             {/* Table */}
-            <div className="rounded-lg border border-slate-800 overflow-hidden">
+            <div className="rounded-lg border border-border overflow-hidden">
                 <Table>
                     <TableHeader>
-                        <TableRow className="border-slate-800 hover:bg-transparent">
-                            <TableHead className="text-slate-400">Estudio</TableHead>
-                            <TableHead className="text-slate-400">Paciente</TableHead>
-                            <TableHead className="text-slate-400 hidden md:table-cell">Fecha</TableHead>
-                            <TableHead className="text-slate-400 hidden md:table-cell">Parámetros</TableHead>
-                            <TableHead className="text-slate-400 text-right">Acciones</TableHead>
+                        <TableRow className="border-border hover:bg-transparent">
+                            <TableHead className="text-muted-foreground">Estudio</TableHead>
+                            <TableHead className="text-muted-foreground">Paciente</TableHead>
+                            <TableHead className="text-muted-foreground hidden md:table-cell">Fecha</TableHead>
+                            <TableHead className="text-muted-foreground hidden md:table-cell">Parámetros</TableHead>
+                            <TableHead className="text-muted-foreground text-right">Acciones</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {estudios.map((estudio: any) => (
-                            <TableRow key={estudio.id} className="border-slate-800 hover:bg-slate-900/50">
+                            <TableRow key={estudio.id} className="border-border hover:bg-muted/50">
                                 <TableCell>
-                                    <p className="text-white font-medium">{estudio.nombreEstudio}</p>
+                                    <p className="text-foreground font-medium">{estudio.nombreEstudio}</p>
                                     {estudio.observaciones && (
-                                        <p className="text-xs text-slate-500 truncate max-w-[200px]">
+                                        <p className="text-xs text-muted-foreground truncate max-w-[200px]">
                                             {estudio.observaciones}
                                         </p>
                                     )}
                                 </TableCell>
                                 <TableCell>
                                     <div className="flex items-center gap-2">
-                                        <User className="h-4 w-4 text-slate-500" />
+                                        <User className="h-4 w-4 text-muted-foreground" />
                                         <div>
-                                            <p className="text-slate-300">
+                                            <p className="text-foreground">
                                                 {estudio.paciente.nombre} {estudio.paciente.apellidoPaterno}
                                             </p>
                                             <Badge
                                                 variant="outline"
-                                                className="font-mono text-xs text-blue-400 border-blue-500/30 bg-blue-500/10"
+                                                className="font-mono text-xs"
                                             >
                                                 {estudio.paciente.folio}
                                             </Badge>
                                         </div>
                                     </div>
                                 </TableCell>
-                                <TableCell className="text-slate-400 hidden md:table-cell">
+                                <TableCell className="text-muted-foreground hidden md:table-cell">
                                     {formatDate(estudio.fechaRealizacion)}
                                 </TableCell>
-                                <TableCell className="text-slate-400 hidden md:table-cell">
+                                <TableCell className="text-muted-foreground hidden md:table-cell">
                                     {estudio._count.parametros} parámetro{estudio._count.parametros !== 1 ? "s" : ""}
                                 </TableCell>
                                 <TableCell className="text-right">
@@ -129,7 +131,7 @@ export default async function EstudiosPage({ searchParams }: PageProps) {
                                         variant="ghost"
                                         size="icon"
                                         asChild
-                                        className="text-slate-400 hover:text-white hover:bg-slate-800"
+                                        className="text-muted-foreground hover:text-foreground"
                                     >
                                         <Link href={`/pacientes/${estudio.paciente.id}`}>
                                             <Eye className="h-4 w-4" />
@@ -144,9 +146,9 @@ export default async function EstudiosPage({ searchParams }: PageProps) {
 
             {estudios.length === 0 && (
                 <div className="text-center py-12">
-                    <ClipboardList className="h-12 w-12 mx-auto text-slate-600 mb-4" />
-                    <p className="text-slate-400 text-lg">No hay estudios registrados</p>
-                    <p className="text-slate-500 text-sm mt-1">
+                    <ClipboardList className="h-12 w-12 mx-auto text-muted-foreground/50 mb-4" />
+                    <p className="text-muted-foreground text-lg">No hay estudios registrados</p>
+                    <p className="text-muted-foreground/70 text-sm mt-1">
                         Los estudios se crean desde el perfil de cada paciente
                     </p>
                 </div>
@@ -156,15 +158,15 @@ export default async function EstudiosPage({ searchParams }: PageProps) {
             {totalPages > 1 && (
                 <div className="flex justify-center gap-2">
                     {page > 1 && (
-                        <Button variant="outline" asChild className="border-slate-700 hover:bg-slate-800">
+                        <Button variant="outline" asChild>
                             <Link href={`/estudios?page=${page - 1}`}>Anterior</Link>
                         </Button>
                     )}
-                    <span className="flex items-center px-4 text-slate-400">
+                    <span className="flex items-center px-4 text-muted-foreground">
                         Página {page} de {totalPages}
                     </span>
                     {page < totalPages && (
-                        <Button variant="outline" asChild className="border-slate-700 hover:bg-slate-800">
+                        <Button variant="outline" asChild>
                             <Link href={`/estudios?page=${page + 1}`}>Siguiente</Link>
                         </Button>
                     )}
@@ -173,3 +175,4 @@ export default async function EstudiosPage({ searchParams }: PageProps) {
         </div>
     );
 }
+

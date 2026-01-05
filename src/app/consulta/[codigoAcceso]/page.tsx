@@ -129,16 +129,16 @@ export default function ConsultaPage({
 
     const getValueColor = (valor: string, min?: string | null, max?: string | null) => {
         const numValue = parseFloat(valor);
-        if (isNaN(numValue)) return "text-slate-300";
+        if (isNaN(numValue)) return "text-foreground";
 
         const numMin = min ? parseFloat(min) : null;
         const numMax = max ? parseFloat(max) : null;
 
-        if (numMin !== null && numValue < numMin) return "text-blue-400 font-semibold";
-        if (numMax !== null && numValue > numMax) return "text-red-400 font-semibold";
-        if (numMin !== null || numMax !== null) return "text-blue-400";
+        if (numMin !== null && numValue < numMin) return "text-primary font-semibold";
+        if (numMax !== null && numValue > numMax) return "text-destructive font-semibold";
+        if (numMin !== null || numMax !== null) return "text-primary";
 
-        return "text-slate-300";
+        return "text-foreground";
     };
 
     const getReferenceText = (min?: string | null, max?: string | null) => {
@@ -151,14 +151,14 @@ export default function ConsultaPage({
     // Show results if validated
     if (resultado) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-8 px-4">
+            <div className="min-h-screen bg-background py-8 px-4">
                 <div className="max-w-4xl mx-auto space-y-6">
                     {/* Header */}
-                    <Card className="bg-slate-800/50 border-slate-700">
+                    <Card className="card-elevated">
                         <CardContent className="pt-6">
                             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                                 <div className="flex items-center gap-4">
-                                    <div className="relative h-14 w-14 overflow-hidden rounded-xl bg-slate-800">
+                                    <div className="relative h-14 w-14 overflow-hidden rounded-xl bg-muted">
                                         <Image
                                             src="/icon.png"
                                             alt="Logo Laboratorio"
@@ -167,24 +167,24 @@ export default function ConsultaPage({
                                         />
                                     </div>
                                     <div>
-                                        <h1 className="text-xl font-bold text-white">
+                                        <h1 className="text-xl font-medium text-foreground">
                                             {CONTACT_INFO.appName}
                                         </h1>
-                                        <p className="text-sm text-slate-400">{CONTACT_INFO.address}</p>
-                                        <p className="text-xs text-slate-500 mt-0.5">
+                                        <p className="text-sm text-muted-foreground">{CONTACT_INFO.address}</p>
+                                        <p className="text-xs text-muted-foreground/70 mt-0.5">
                                             Tel: {CONTACT_INFO.phone}
                                         </p>
                                     </div>
                                 </div>
                                 <div className="flex flex-col md:flex-row gap-2 items-center">
-                                    <Badge className="bg-blue-500 text-white h-10 px-4">
+                                    <Badge className="h-10 px-4">
                                         <CheckCircle className="mr-2 h-4 w-4" />
                                         Resultados Verificados
                                     </Badge>
                                     <Button
                                         asChild
                                         variant="outline"
-                                        className="border-blue-500/30 text-blue-400 hover:bg-blue-500/10 hover:text-blue-300 h-10"
+                                        className="h-10"
                                     >
                                         <a
                                             href={`/api/consulta/${codigoAcceso}/pdf`}
@@ -202,41 +202,43 @@ export default function ConsultaPage({
                     </Card>
 
                     {/* Patient Info */}
-                    <Card className="bg-slate-800/50 border-slate-700">
+                    <Card className="card-elevated">
                         <CardHeader>
-                            <CardTitle className="text-white flex items-center gap-2">
-                                <User className="h-5 w-5 text-blue-400" />
+                            <CardTitle className="text-foreground flex items-center gap-2">
+                                <div className="p-1.5 rounded-lg bg-muted">
+                                    <User className="h-4 w-4" />
+                                </div>
                                 Información del Paciente
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div>
-                                <p className="text-xs text-slate-500">Nombre</p>
-                                <p className="text-white font-medium">{getNombreCompleto(resultado.paciente)}</p>
+                                <p className="text-xs text-muted-foreground">Nombre</p>
+                                <p className="text-foreground font-medium">{getNombreCompleto(resultado.paciente)}</p>
                             </div>
                             <div>
-                                <p className="text-xs text-slate-500">Folio</p>
-                                <Badge variant="outline" className="font-mono text-blue-400 border-blue-500/30 bg-blue-500/10">
+                                <p className="text-xs text-muted-foreground">Folio</p>
+                                <Badge variant="outline" className="font-mono">
                                     {resultado.paciente.folio}
                                 </Badge>
                             </div>
                             <div>
-                                <p className="text-xs text-slate-500">Fecha de Emisión</p>
-                                <p className="text-slate-300">{formatDate(resultado.fechaEmision)}</p>
+                                <p className="text-xs text-muted-foreground">Fecha de Emisión</p>
+                                <p className="text-muted-foreground">{formatDate(resultado.fechaEmision)}</p>
                             </div>
                             <div>
-                                <p className="text-xs text-slate-500">Válido hasta</p>
-                                <p className="text-slate-300">{formatDate(resultado.fechaExpiracion)}</p>
+                                <p className="text-xs text-muted-foreground">Válido hasta</p>
+                                <p className="text-muted-foreground">{formatDate(resultado.fechaExpiracion)}</p>
                             </div>
                         </CardContent>
                     </Card>
 
                     {/* Studies */}
                     {resultado.estudios.map((estudio, idx) => (
-                        <Card key={idx} className="bg-slate-800/50 border-slate-700">
-                            <CardHeader className="bg-blue-500/10 border-b border-slate-700">
-                                <CardTitle className="text-white">{estudio.nombreEstudio}</CardTitle>
-                                <CardDescription className="text-slate-400">
+                        <Card key={idx} className="card-elevated">
+                            <CardHeader className="bg-primary/5 border-b border-border">
+                                <CardTitle className="text-foreground">{estudio.nombreEstudio}</CardTitle>
+                                <CardDescription className="text-muted-foreground">
                                     <Calendar className="inline h-4 w-4 mr-1" />
                                     Realizado: {formatDate(estudio.fechaRealizacion)}
                                 </CardDescription>
@@ -244,24 +246,24 @@ export default function ConsultaPage({
                             <CardContent className="p-0">
                                 <Table>
                                     <TableHeader>
-                                        <TableRow className="border-slate-700 hover:bg-transparent">
-                                            <TableHead className="text-slate-400">Parámetro</TableHead>
-                                            <TableHead className="text-slate-400">Resultado</TableHead>
-                                            <TableHead className="text-slate-400">Unidad</TableHead>
-                                            <TableHead className="text-slate-400">Referencia</TableHead>
+                                        <TableRow className="border-border hover:bg-transparent">
+                                            <TableHead className="text-muted-foreground">Parámetro</TableHead>
+                                            <TableHead className="text-muted-foreground">Resultado</TableHead>
+                                            <TableHead className="text-muted-foreground">Unidad</TableHead>
+                                            <TableHead className="text-muted-foreground">Referencia</TableHead>
                                         </TableRow>
                                     </TableHeader>
                                     <TableBody>
                                         {estudio.parametros.map((param, pIdx) => (
-                                            <TableRow key={pIdx} className="border-slate-700">
-                                                <TableCell className="text-white font-medium">
+                                            <TableRow key={pIdx} className="border-border">
+                                                <TableCell className="text-foreground font-medium">
                                                     {param.nombreParametro}
                                                 </TableCell>
                                                 <TableCell className={getValueColor(param.valor, param.valorRefMin, param.valorRefMax)}>
                                                     {param.valor}
                                                 </TableCell>
-                                                <TableCell className="text-slate-400">{param.unidad}</TableCell>
-                                                <TableCell className="text-slate-500">
+                                                <TableCell className="text-muted-foreground">{param.unidad}</TableCell>
+                                                <TableCell className="text-muted-foreground/70">
                                                     {getReferenceText(param.valorRefMin, param.valorRefMax)}
                                                 </TableCell>
                                             </TableRow>
@@ -269,8 +271,8 @@ export default function ConsultaPage({
                                     </TableBody>
                                 </Table>
                                 {estudio.observaciones && (
-                                    <div className="p-4 bg-amber-500/10 border-t border-slate-700">
-                                        <p className="text-sm text-amber-400">
+                                    <div className="p-4 bg-amber-500/10 border-t border-border">
+                                        <p className="text-sm text-amber-600 dark:text-amber-400">
                                             <strong>Observaciones:</strong> {estudio.observaciones}
                                         </p>
                                     </div>
@@ -280,20 +282,20 @@ export default function ConsultaPage({
                     ))}
 
                     {/* Legend */}
-                    <Card className="bg-slate-800/50 border-slate-700">
+                    <Card className="card-elevated">
                         <CardContent className="py-4">
                             <div className="flex flex-wrap gap-4 justify-center text-sm">
                                 <div className="flex items-center gap-2">
-                                    <div className="w-3 h-3 rounded-full bg-blue-400" />
-                                    <span className="text-slate-400">Normal</span>
+                                    <div className="w-3 h-3 rounded-full bg-primary" />
+                                    <span className="text-muted-foreground">Normal</span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <div className="w-3 h-3 rounded-full bg-red-400" />
-                                    <span className="text-slate-400">Alto</span>
+                                    <div className="w-3 h-3 rounded-full bg-destructive" />
+                                    <span className="text-muted-foreground">Alto</span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <div className="w-3 h-3 rounded-full bg-blue-400" />
-                                    <span className="text-slate-400">Bajo</span>
+                                    <div className="w-3 h-3 rounded-full bg-primary" />
+                                    <span className="text-muted-foreground">Bajo</span>
                                 </div>
                             </div>
                         </CardContent>
@@ -301,11 +303,11 @@ export default function ConsultaPage({
 
                     {/* Footer */}
                     <div className="space-y-2 text-center">
-                        <div className="text-sm text-slate-500">
+                        <div className="text-sm text-muted-foreground">
                             <ShieldCheck className="inline h-4 w-4 mr-1" />
                             Este resultado es verificado y emitido por {resultado.laboratorio.nombre}
                         </div>
-                        <div className="text-xs text-slate-600">
+                        <div className="text-xs text-muted-foreground/70">
                             <p>AV. BENITO JUAREZ No. 3 COL CENTRO TLAHUELILPAN. HGO</p>
                             <p className="mt-1">
                                 Tel: 763 788 0910 • Urgencias: 773 124 5856
@@ -317,10 +319,19 @@ export default function ConsultaPage({
         );
     }
 
-    // Show validation form
+    // Show validation form with animated background
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4">
-            <Card className="w-full max-w-md bg-slate-800/50 border-slate-700 backdrop-blur-sm shadow-2xl">
+        <div className="min-h-screen flex items-center justify-center bg-background p-4 relative overflow-hidden">
+            {/* Animated Geometric Background */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div className="absolute top-[10%] left-[5%] w-72 h-72 bg-muted/30 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '8s' }} />
+                <div className="absolute top-[60%] right-[10%] w-96 h-96 bg-muted/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s' }} />
+                <div className="absolute bottom-[20%] left-[20%] w-64 h-64 bg-muted/25 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
+                <div className="absolute top-[15%] right-[15%] w-20 h-20 border border-border/50 rotate-45" />
+                <div className="absolute bottom-[25%] left-[10%] w-16 h-16 border border-border/40 rounded-full" />
+            </div>
+
+            <Card className="w-full max-w-md card-elevated backdrop-blur-sm relative z-10">
                 <CardHeader className="text-center space-y-4">
                     <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-lg relative overflow-hidden shadow-lg">
                         <Image
@@ -331,10 +342,10 @@ export default function ConsultaPage({
                         />
                     </div>
                     <div>
-                        <CardTitle className="text-2xl font-bold text-white">
+                        <CardTitle className="text-2xl font-medium text-foreground">
                             Consulta de Resultados
                         </CardTitle>
-                        <CardDescription className="text-slate-400">
+                        <CardDescription className="text-muted-foreground">
                             Ingresa tu folio para ver tus resultados
                         </CardDescription>
                     </div>
@@ -342,31 +353,30 @@ export default function ConsultaPage({
                 <CardContent>
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                         {error && (
-                            <Alert variant="destructive" className="bg-red-900/50 border-red-800">
+                            <Alert variant="destructive">
                                 <AlertCircle className="h-4 w-4" />
                                 <AlertDescription>{error}</AlertDescription>
                             </Alert>
                         )}
 
                         <div className="space-y-2">
-                            <Label htmlFor="folio" className="text-slate-300">
+                            <Label htmlFor="folio" className="text-foreground">
                                 Folio del Paciente
                             </Label>
                             <Input
                                 id="folio"
                                 placeholder="Ingresa tu folio"
-                                className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-blue-500"
                                 {...register("folio")}
                                 disabled={isLoading}
                             />
                             {errors.folio && (
-                                <p className="text-sm text-red-400">{errors.folio.message}</p>
+                                <p className="text-sm text-destructive">{errors.folio.message}</p>
                             )}
                         </div>
 
                         <Button
                             type="submit"
-                            className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700"
+                            className="w-full"
                             disabled={isLoading}
                         >
                             {isLoading ? (
@@ -384,3 +394,4 @@ export default function ConsultaPage({
         </div>
     );
 }
+

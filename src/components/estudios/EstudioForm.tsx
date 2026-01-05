@@ -66,53 +66,51 @@ export function EstudioForm({
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             {/* Study Info */}
-            <Card className="bg-slate-900 border-slate-800">
+            <Card className="card-elevated">
                 <CardHeader>
-                    <CardTitle className="text-white">Información del Estudio</CardTitle>
+                    <CardTitle className="text-foreground">Información del Estudio</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                     <div className="grid gap-4 md:grid-cols-2">
                         <div className="space-y-2">
-                            <Label htmlFor="nombreEstudio" className="text-slate-300">
-                                Nombre del Estudio <span className="text-red-400">*</span>
+                            <Label htmlFor="nombreEstudio" className="text-foreground">
+                                Nombre del Estudio <span className="text-destructive">*</span>
                             </Label>
                             <Input
                                 id="nombreEstudio"
                                 placeholder="Ej: Biometría Hemática, Química Sanguínea"
-                                className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
                                 {...register("nombreEstudio")}
                                 disabled={isLoading}
                             />
                             {errors.nombreEstudio && (
-                                <p className="text-sm text-red-400">{errors.nombreEstudio.message}</p>
+                                <p className="text-sm text-destructive">{errors.nombreEstudio.message}</p>
                             )}
                         </div>
 
                         <div className="space-y-2">
-                            <Label htmlFor="fechaRealizacion" className="text-slate-300">
-                                Fecha de Realización <span className="text-red-400">*</span>
+                            <Label htmlFor="fechaRealizacion" className="text-foreground">
+                                Fecha de Realización <span className="text-destructive">*</span>
                             </Label>
                             <Input
                                 id="fechaRealizacion"
                                 type="date"
-                                className="bg-slate-800 border-slate-700 text-white"
                                 {...register("fechaRealizacion")}
                                 disabled={isLoading}
                             />
                             {errors.fechaRealizacion && (
-                                <p className="text-sm text-red-400">{errors.fechaRealizacion.message}</p>
+                                <p className="text-sm text-destructive">{errors.fechaRealizacion.message}</p>
                             )}
                         </div>
                     </div>
 
                     <div className="space-y-2">
-                        <Label htmlFor="observaciones" className="text-slate-300">
+                        <Label htmlFor="observaciones" className="text-foreground">
                             Observaciones
                         </Label>
                         <Textarea
                             id="observaciones"
                             placeholder="Notas adicionales sobre el estudio..."
-                            className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 min-h-[80px]"
+                            className="min-h-[80px]"
                             {...register("observaciones")}
                             disabled={isLoading}
                         />
@@ -121,12 +119,12 @@ export function EstudioForm({
             </Card>
 
             {/* Parameters */}
-            <Card className="bg-slate-900 border-slate-800">
+            <Card className="card-elevated">
                 <CardHeader className="flex flex-row items-center justify-between">
-                    <CardTitle className="text-white">
+                    <CardTitle className="text-foreground">
                         Parámetros Medidos
                         {errors.parametros?.root && (
-                            <span className="ml-2 text-sm font-normal text-red-400">
+                            <span className="ml-2 text-sm font-normal text-destructive">
                                 {errors.parametros.root.message}
                             </span>
                         )}
@@ -137,7 +135,6 @@ export function EstudioForm({
                         size="sm"
                         onClick={addParametro}
                         disabled={isLoading}
-                        className="border-blue-500 text-blue-400 hover:bg-blue-500/20"
                     >
                         <Plus className="mr-2 h-4 w-4" />
                         Agregar
@@ -147,10 +144,10 @@ export function EstudioForm({
                     {fields.map((field, index) => (
                         <div
                             key={field.id}
-                            className="p-4 rounded-lg bg-slate-800/50 border border-slate-700 space-y-4"
+                            className="p-4 rounded-lg bg-muted/50 border border-border space-y-4"
                         >
                             <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-2 text-slate-400">
+                                <div className="flex items-center gap-2 text-muted-foreground">
                                     <GripVertical className="h-4 w-4" />
                                     <span className="text-sm font-medium">Parámetro {index + 1}</span>
                                 </div>
@@ -161,7 +158,7 @@ export function EstudioForm({
                                         size="icon"
                                         onClick={() => remove(index)}
                                         disabled={isLoading}
-                                        className="text-red-400 hover:text-red-300 hover:bg-red-500/20"
+                                        className="text-destructive hover:text-destructive hover:bg-destructive/10"
                                     >
                                         <Trash2 className="h-4 w-4" />
                                     </Button>
@@ -170,63 +167,58 @@ export function EstudioForm({
 
                             <div className="grid gap-4 md:grid-cols-5">
                                 <div className="md:col-span-2 space-y-2">
-                                    <Label className="text-slate-400 text-xs">Nombre</Label>
+                                    <Label className="text-muted-foreground text-xs">Nombre</Label>
                                     <Input
                                         placeholder="Ej: Glucosa"
-                                        className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-500"
                                         {...register(`parametros.${index}.nombreParametro`)}
                                         disabled={isLoading}
                                     />
                                     {errors.parametros?.[index]?.nombreParametro && (
-                                        <p className="text-xs text-red-400">
+                                        <p className="text-xs text-destructive">
                                             {errors.parametros[index].nombreParametro?.message}
                                         </p>
                                     )}
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label className="text-slate-400 text-xs">Valor</Label>
+                                    <Label className="text-muted-foreground text-xs">Valor</Label>
                                     <Input
                                         placeholder="95"
-                                        className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-500"
                                         {...register(`parametros.${index}.valor`)}
                                         disabled={isLoading}
                                     />
                                     {errors.parametros?.[index]?.valor && (
-                                        <p className="text-xs text-red-400">
+                                        <p className="text-xs text-destructive">
                                             {errors.parametros[index].valor?.message}
                                         </p>
                                     )}
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label className="text-slate-400 text-xs">Unidad</Label>
+                                    <Label className="text-muted-foreground text-xs">Unidad</Label>
                                     <Input
                                         placeholder="mg/dL"
-                                        className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-500"
                                         {...register(`parametros.${index}.unidad`)}
                                         disabled={isLoading}
                                     />
                                     {errors.parametros?.[index]?.unidad && (
-                                        <p className="text-xs text-red-400">
+                                        <p className="text-xs text-destructive">
                                             {errors.parametros[index].unidad?.message}
                                         </p>
                                     )}
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label className="text-slate-400 text-xs">Ref. (Min - Max)</Label>
+                                    <Label className="text-muted-foreground text-xs">Ref. (Min - Max)</Label>
                                     <div className="flex gap-1">
                                         <Input
                                             placeholder="70"
-                                            className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-500"
                                             {...register(`parametros.${index}.valorRefMin`)}
                                             disabled={isLoading}
                                         />
-                                        <span className="flex items-center text-slate-500">-</span>
+                                        <span className="flex items-center text-muted-foreground">-</span>
                                         <Input
                                             placeholder="100"
-                                            className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-500"
                                             {...register(`parametros.${index}.valorRefMax`)}
                                             disabled={isLoading}
                                         />
@@ -241,7 +233,6 @@ export function EstudioForm({
             <div className="flex justify-end gap-4">
                 <Button
                     type="submit"
-                    className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700"
                     disabled={isLoading}
                 >
                     {isLoading ? (
@@ -257,3 +248,4 @@ export function EstudioForm({
         </form>
     );
 }
+

@@ -12,7 +12,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Loader2, FlaskConical, AlertCircle } from "lucide-react";
+import { Loader2, AlertCircle } from "lucide-react";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 const loginSchema = z.object({
     email: z.string().email("Email inválido"),
@@ -59,84 +60,92 @@ export default function LoginPage() {
     };
 
     return (
-        <Card className="border-slate-700 bg-slate-800/50 backdrop-blur-sm shadow-2xl">
-            <CardHeader className="space-y-4 text-center">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-lg relative overflow-hidden shadow-lg">
-                    <Image
-                        src="/icon.png"
-                        alt="Logo"
-                        fill
-                        className="object-cover"
-                    />
-                </div>
-                <div>
-                    <CardTitle className="text-2xl font-bold text-white">
-                        Sistema de Laboratorio
-                    </CardTitle>
-                    <CardDescription className="text-slate-400">
-                        Ingresa tus credenciales para acceder al panel
-                    </CardDescription>
-                </div>
-            </CardHeader>
-            <CardContent>
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                    {error && (
-                        <Alert variant="destructive" className="bg-red-900/50 border-red-800">
-                            <AlertCircle className="h-4 w-4" />
-                            <AlertDescription>{error}</AlertDescription>
-                        </Alert>
-                    )}
+        <div className="min-h-screen flex items-center justify-center bg-background px-4">
+            {/* Theme Toggle - Top Right */}
+            <div className="absolute top-4 right-4">
+                <ThemeToggle />
+            </div>
 
-                    <div className="space-y-2">
-                        <Label htmlFor="email" className="text-slate-300">
-                            Email
-                        </Label>
-                        <Input
-                            id="email"
-                            type="email"
-                            placeholder="usuario@laboratorio.com"
-                            className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500"
-                            {...register("email")}
-                            disabled={isLoading}
+            <Card className="w-full max-w-md border-border bg-card shadow-sm">
+                <CardHeader className="space-y-4 text-center pb-2">
+                    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-xl border border-border relative overflow-hidden">
+                        <Image
+                            src="/icon.png"
+                            alt="Logo"
+                            fill
+                            className="object-cover"
                         />
-                        {errors.email && (
-                            <p className="text-sm text-red-400">{errors.email.message}</p>
-                        )}
                     </div>
+                    <div>
+                        <CardTitle className="text-xl font-medium text-foreground">
+                            San Martin Labs
+                        </CardTitle>
+                        <CardDescription className="text-muted-foreground">
+                            Ingresa tus credenciales para acceder
+                        </CardDescription>
+                    </div>
+                </CardHeader>
+                <CardContent className="pt-4">
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                        {error && (
+                            <Alert variant="destructive" className="border-destructive/50 bg-destructive/10">
+                                <AlertCircle className="h-4 w-4" />
+                                <AlertDescription>{error}</AlertDescription>
+                            </Alert>
+                        )}
 
-                    <div className="space-y-2">
-                        <Label htmlFor="password" className="text-slate-300">
-                            Contraseña
-                        </Label>
-                        <Input
-                            id="password"
-                            type="password"
-                            placeholder="••••••••"
-                            className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500"
-                            {...register("password")}
+                        <div className="space-y-2">
+                            <Label htmlFor="email" className="text-foreground text-sm font-medium">
+                                Email
+                            </Label>
+                            <Input
+                                id="email"
+                                type="email"
+                                placeholder="usuario@laboratorio.com"
+                                className="bg-background border-input text-foreground placeholder:text-muted-foreground focus:border-foreground focus:ring-foreground"
+                                {...register("email")}
+                                disabled={isLoading}
+                            />
+                            {errors.email && (
+                                <p className="text-sm text-destructive">{errors.email.message}</p>
+                            )}
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label htmlFor="password" className="text-foreground text-sm font-medium">
+                                Contraseña
+                            </Label>
+                            <Input
+                                id="password"
+                                type="password"
+                                placeholder="••••••••"
+                                className="bg-background border-input text-foreground placeholder:text-muted-foreground focus:border-foreground focus:ring-foreground"
+                                {...register("password")}
+                                disabled={isLoading}
+                            />
+                            {errors.password && (
+                                <p className="text-sm text-destructive">{errors.password.message}</p>
+                            )}
+                        </div>
+
+                        <Button
+                            type="submit"
+                            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium rounded-full py-5"
                             disabled={isLoading}
-                        />
-                        {errors.password && (
-                            <p className="text-sm text-red-400">{errors.password.message}</p>
-                        )}
-                    </div>
-
-                    <Button
-                        type="submit"
-                        className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold shadow-lg"
-                        disabled={isLoading}
-                    >
-                        {isLoading ? (
-                            <>
-                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                Ingresando...
-                            </>
-                        ) : (
-                            "Iniciar Sesión"
-                        )}
-                    </Button>
-                </form>
-            </CardContent>
-        </Card >
+                        >
+                            {isLoading ? (
+                                <>
+                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                    Ingresando...
+                                </>
+                            ) : (
+                                "Iniciar Sesión"
+                            )}
+                        </Button>
+                    </form>
+                </CardContent>
+            </Card>
+        </div>
     );
 }
+

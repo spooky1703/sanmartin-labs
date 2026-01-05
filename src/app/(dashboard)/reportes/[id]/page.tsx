@@ -79,7 +79,7 @@ export default async function ReporteDetailPage({ params }: PageProps) {
     const getStatusBadge = () => {
         if (!reporte.vigente) {
             return (
-                <Badge variant="outline" className="border-red-500/30 bg-red-500/10 text-red-400">
+                <Badge variant="outline" className="border-destructive/30 bg-destructive/10 text-destructive">
                     <XCircle className="mr-1 h-3 w-3" />
                     Invalidado
                 </Badge>
@@ -87,14 +87,14 @@ export default async function ReporteDetailPage({ params }: PageProps) {
         }
         if (isExpired) {
             return (
-                <Badge variant="outline" className="border-amber-500/30 bg-amber-500/10 text-amber-400">
+                <Badge variant="outline" className="border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400">
                     <Clock className="mr-1 h-3 w-3" />
                     Expirado
                 </Badge>
             );
         }
         return (
-            <Badge variant="outline" className="border-blue-500/30 bg-blue-500/10 text-blue-400">
+            <Badge variant="outline" className="border-primary/30 bg-primary/10 text-primary">
                 <CheckCircle className="mr-1 h-3 w-3" />
                 Vigente
             </Badge>
@@ -103,16 +103,16 @@ export default async function ReporteDetailPage({ params }: PageProps) {
 
     const getValueColor = (valor: string, min?: string | null, max?: string | null) => {
         const numValue = parseFloat(valor);
-        if (isNaN(numValue)) return "text-slate-300";
+        if (isNaN(numValue)) return "text-foreground";
 
         const numMin = min ? parseFloat(min) : null;
         const numMax = max ? parseFloat(max) : null;
 
-        if (numMin !== null && numValue < numMin) return "text-blue-400 font-semibold";
-        if (numMax !== null && numValue > numMax) return "text-red-400 font-semibold";
-        if (numMin !== null || numMax !== null) return "text-blue-400";
+        if (numMin !== null && numValue < numMin) return "text-primary font-semibold";
+        if (numMax !== null && numValue > numMax) return "text-destructive font-semibold";
+        if (numMin !== null || numMax !== null) return "text-primary";
 
-        return "text-slate-300";
+        return "text-foreground";
     };
 
     const getReferenceText = (min?: string | null, max?: string | null) => {
@@ -133,20 +133,22 @@ export default async function ReporteDetailPage({ params }: PageProps) {
                         variant="ghost"
                         size="icon"
                         asChild
-                        className="text-slate-400 hover:text-white"
+                        className="text-muted-foreground hover:text-foreground"
                     >
                         <Link href="/reportes">
                             <ArrowLeft className="h-5 w-5" />
                         </Link>
                     </Button>
                     <div>
-                        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-                            <FileText className="h-6 w-6 text-purple-500" />
+                        <h1 className="text-2xl font-light text-foreground flex items-center gap-2">
+                            <div className="p-2 rounded-lg bg-muted">
+                                <FileText className="h-5 w-5" />
+                            </div>
                             Reporte de Resultados
                         </h1>
                         <div className="flex items-center gap-2 mt-1">
                             {getStatusBadge()}
-                            <span className="text-slate-500 text-sm">
+                            <span className="text-muted-foreground text-sm">
                                 Código: {reporte.codigoAcceso}
                             </span>
                         </div>
@@ -154,10 +156,7 @@ export default async function ReporteDetailPage({ params }: PageProps) {
                 </div>
                 <div className="flex flex-wrap gap-2">
                     <PrintButton pdfUrl={`/api/reportes/${reporte.id}/pdf`} />
-                    <Button
-                        asChild
-                        className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700"
-                    >
+                    <Button asChild>
                         <a href={`/api/reportes/${reporte.id}/pdf`} target="_blank">
                             <Download className="mr-2 h-4 w-4" />
                             Descargar PDF
@@ -167,7 +166,6 @@ export default async function ReporteDetailPage({ params }: PageProps) {
                         <Button
                             asChild
                             variant="outline"
-                            className="border-blue-500/30 text-blue-400 hover:bg-blue-500/10"
                         >
                             <a
                                 href={`mailto:${reporte.paciente.email}?subject=${encodeURIComponent(`Resultados de Laboratorio - ${reporte.laboratorio.nombre}`)}&body=${encodeURIComponent(`Estimado(a) ${getNombreCompleto()},\n\nLe informamos que sus resultados de laboratorio están listos.\n\n📋 Folio: ${reporte.paciente.folio}\n\nPuede consultar y descargar sus resultados en línea en el siguiente enlace:\n${process.env.NEXTAUTH_URL || 'https://sanmartin-labs-production.up.railway.app'}${consultaUrl}\n\nPara acceder, necesitará su número de folio: ${reporte.paciente.folio}\n\nSaludos cordiales,\n${reporte.laboratorio.nombre}`)}`}
@@ -181,7 +179,7 @@ export default async function ReporteDetailPage({ params }: PageProps) {
                         <Button
                             asChild
                             variant="outline"
-                            className="border-green-500/30 text-green-400 hover:bg-green-500/10"
+                            className="border-green-500/30 text-green-600 dark:text-green-400 hover:bg-green-500/10"
                         >
                             <a
                                 href={`https://wa.me/${reporte.paciente.telefono.replace(/\D/g, '')}?text=${encodeURIComponent(`🔬 *${reporte.laboratorio.nombre}*\n\nEstimado(a) ${getNombreCompleto()},\n\nSus resultados de laboratorio están listos.\n\n📋 *Folio:* ${reporte.paciente.folio}\n\n🔗 *Consultar resultados:*\n${process.env.NEXTAUTH_URL || 'https://sanmartin-labs-production.up.railway.app'}${consultaUrl}\n\nPara acceder necesita su folio: *${reporte.paciente.folio}*`)}`}
@@ -197,40 +195,42 @@ export default async function ReporteDetailPage({ params }: PageProps) {
 
             <div className="grid gap-6 lg:grid-cols-3">
                 {/* Patient & Report Info */}
-                <Card className="bg-slate-900 border-slate-800">
+                <Card className="card-elevated">
                     <CardHeader>
-                        <CardTitle className="text-white flex items-center gap-2">
-                            <User className="h-5 w-5 text-blue-500" />
+                        <CardTitle className="text-foreground flex items-center gap-2">
+                            <div className="p-1.5 rounded-lg bg-muted">
+                                <User className="h-4 w-4" />
+                            </div>
                             Información del Paciente
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
                         <div>
-                            <p className="text-xs text-slate-500">Nombre</p>
-                            <p className="text-white font-medium">{getNombreCompleto()}</p>
+                            <p className="text-xs text-muted-foreground">Nombre</p>
+                            <p className="text-foreground font-medium">{getNombreCompleto()}</p>
                         </div>
                         <div>
-                            <p className="text-xs text-slate-500">Folio</p>
+                            <p className="text-xs text-muted-foreground">Folio</p>
                             <Badge
                                 variant="outline"
-                                className="font-mono text-blue-400 border-blue-500/30 bg-blue-500/10"
+                                className="font-mono"
                             >
                                 {reporte.paciente.folio}
                             </Badge>
                         </div>
-                        <div className="pt-4 border-t border-slate-800">
-                            <p className="text-xs text-slate-500">Fecha de Emisión</p>
-                            <p className="text-slate-300">{formatDate(reporte.fechaEmision)}</p>
+                        <div className="pt-4 border-t border-border">
+                            <p className="text-xs text-muted-foreground">Fecha de Emisión</p>
+                            <p className="text-muted-foreground">{formatDate(reporte.fechaEmision)}</p>
                         </div>
                         <div>
-                            <p className="text-xs text-slate-500">Válido hasta</p>
-                            <p className={isExpired ? "text-red-400" : "text-slate-300"}>
+                            <p className="text-xs text-muted-foreground">Válido hasta</p>
+                            <p className={isExpired ? "text-destructive" : "text-muted-foreground"}>
                                 {formatDate(reporte.fechaExpiracion)}
                             </p>
                         </div>
                         <div>
-                            <p className="text-xs text-slate-500">Emitido por</p>
-                            <p className="text-slate-300">
+                            <p className="text-xs text-muted-foreground">Emitido por</p>
+                            <p className="text-muted-foreground">
                                 {reporte.usuario.nombre} {reporte.usuario.apellido}
                             </p>
                         </div>
@@ -238,29 +238,31 @@ export default async function ReporteDetailPage({ params }: PageProps) {
                 </Card>
 
                 {/* QR Code Info */}
-                <Card className="bg-slate-900 border-slate-800 lg:col-span-2">
+                <Card className="card-elevated lg:col-span-2">
                     <CardHeader>
-                        <CardTitle className="text-white flex items-center gap-2">
-                            <QrCode className="h-5 w-5 text-blue-500" />
+                        <CardTitle className="text-foreground flex items-center gap-2">
+                            <div className="p-1.5 rounded-lg bg-muted">
+                                <QrCode className="h-4 w-4" />
+                            </div>
                             Consulta en Línea
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <div className="flex items-center gap-4 p-4 rounded-lg bg-slate-800/50 border border-slate-700">
+                        <div className="flex items-center gap-4 p-4 rounded-lg bg-muted/50 border border-border">
                             <div className="flex-1">
-                                <p className="text-sm text-slate-400 mb-2">
+                                <p className="text-sm text-muted-foreground mb-2">
                                     El paciente puede consultar sus resultados en línea usando:
                                 </p>
                                 <div className="space-y-2">
                                     <div>
-                                        <p className="text-xs text-slate-500">URL de consulta</p>
-                                        <code className="text-blue-400 text-sm break-all">
+                                        <p className="text-xs text-muted-foreground">URL de consulta</p>
+                                        <code className="text-primary text-sm break-all">
                                             {typeof window !== "undefined" ? window.location.origin : ""}{consultaUrl}
                                         </code>
                                     </div>
                                     <div>
-                                        <p className="text-xs text-slate-500">Folio para validación</p>
-                                        <code className="text-white">{reporte.paciente.folio}</code>
+                                        <p className="text-xs text-muted-foreground">Folio para validación</p>
+                                        <code className="text-foreground">{reporte.paciente.folio}</code>
                                     </div>
                                 </div>
                             </div>
@@ -271,11 +273,11 @@ export default async function ReporteDetailPage({ params }: PageProps) {
 
             {/* Studies */}
             {reporte.estudios.map((re: any, idx: number) => (
-                <Card key={idx} className="bg-slate-900 border-slate-800">
-                    <CardHeader className="bg-purple-500/10 border-b border-slate-800">
-                        <CardTitle className="text-white flex items-center justify-between">
+                <Card key={idx} className="card-elevated">
+                    <CardHeader className="bg-primary/5 border-b border-border">
+                        <CardTitle className="text-foreground flex items-center justify-between">
                             <span>{re.estudio.nombreEstudio}</span>
-                            <Badge variant="outline" className="text-slate-400 border-slate-600">
+                            <Badge variant="outline" className="text-muted-foreground">
                                 <Calendar className="mr-1 h-3 w-3" />
                                 {formatDate(re.estudio.fechaRealizacion)}
                             </Badge>
@@ -284,24 +286,24 @@ export default async function ReporteDetailPage({ params }: PageProps) {
                     <CardContent className="p-0">
                         <Table>
                             <TableHeader>
-                                <TableRow className="border-slate-800 hover:bg-transparent">
-                                    <TableHead className="text-slate-400">Parámetro</TableHead>
-                                    <TableHead className="text-slate-400">Resultado</TableHead>
-                                    <TableHead className="text-slate-400">Unidad</TableHead>
-                                    <TableHead className="text-slate-400">Referencia</TableHead>
+                                <TableRow className="border-border hover:bg-transparent">
+                                    <TableHead className="text-muted-foreground">Parámetro</TableHead>
+                                    <TableHead className="text-muted-foreground">Resultado</TableHead>
+                                    <TableHead className="text-muted-foreground">Unidad</TableHead>
+                                    <TableHead className="text-muted-foreground">Referencia</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
                                 {re.estudio.parametros.map((param: any, pIdx: number) => (
-                                    <TableRow key={pIdx} className="border-slate-800">
-                                        <TableCell className="text-white font-medium">
+                                    <TableRow key={pIdx} className="border-border">
+                                        <TableCell className="text-foreground font-medium">
                                             {param.nombreParametro}
                                         </TableCell>
                                         <TableCell className={getValueColor(param.valor, param.valorRefMin, param.valorRefMax)}>
                                             {param.valor}
                                         </TableCell>
-                                        <TableCell className="text-slate-400">{param.unidad}</TableCell>
-                                        <TableCell className="text-slate-500">
+                                        <TableCell className="text-muted-foreground">{param.unidad}</TableCell>
+                                        <TableCell className="text-muted-foreground/70">
                                             {getReferenceText(param.valorRefMin, param.valorRefMax)}
                                         </TableCell>
                                     </TableRow>
@@ -309,8 +311,8 @@ export default async function ReporteDetailPage({ params }: PageProps) {
                             </TableBody>
                         </Table>
                         {re.estudio.observaciones && (
-                            <div className="p-4 bg-amber-500/10 border-t border-slate-800">
-                                <p className="text-sm text-amber-400">
+                            <div className="p-4 bg-amber-500/10 border-t border-border">
+                                <p className="text-sm text-amber-600 dark:text-amber-400">
                                     <strong>Observaciones:</strong> {re.estudio.observaciones}
                                 </p>
                             </div>
@@ -320,20 +322,20 @@ export default async function ReporteDetailPage({ params }: PageProps) {
             ))}
 
             {/* Legend */}
-            <Card className="bg-slate-900 border-slate-800">
+            <Card className="card-elevated">
                 <CardContent className="py-4">
                     <div className="flex flex-wrap gap-4 justify-center text-sm">
                         <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-full bg-blue-400" />
-                            <span className="text-slate-400">Normal</span>
+                            <div className="w-3 h-3 rounded-full bg-primary" />
+                            <span className="text-muted-foreground">Normal</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-full bg-red-400" />
-                            <span className="text-slate-400">Alto</span>
+                            <div className="w-3 h-3 rounded-full bg-destructive" />
+                            <span className="text-muted-foreground">Alto</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-full bg-blue-400" />
-                            <span className="text-slate-400">Bajo</span>
+                            <div className="w-3 h-3 rounded-full bg-primary" />
+                            <span className="text-muted-foreground">Bajo</span>
                         </div>
                     </div>
                 </CardContent>
@@ -341,3 +343,4 @@ export default async function ReporteDetailPage({ params }: PageProps) {
         </div>
     );
 }
+

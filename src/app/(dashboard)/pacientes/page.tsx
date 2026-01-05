@@ -59,18 +59,17 @@ export default async function PacientesPage({ searchParams }: PageProps) {
             {/* Header */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-white flex items-center gap-3">
-                        <Users className="h-8 w-8 text-blue-500" />
+                    <h1 className="text-2xl font-light text-foreground flex items-center gap-3">
+                        <div className="p-2 rounded-lg bg-muted">
+                            <Users className="h-5 w-5" />
+                        </div>
                         Pacientes
                     </h1>
-                    <p className="text-slate-400 mt-1">
+                    <p className="text-muted-foreground mt-1">
                         {total} paciente{total !== 1 ? "s" : ""} registrado{total !== 1 ? "s" : ""}
                     </p>
                 </div>
-                <Button
-                    asChild
-                    className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700"
-                >
+                <Button asChild>
                     <Link href="/pacientes/nuevo">
                         <UserPlus className="mr-2 h-4 w-4" />
                         Nuevo Paciente
@@ -79,16 +78,16 @@ export default async function PacientesPage({ searchParams }: PageProps) {
             </div>
 
             {/* Search */}
-            <Card className="bg-slate-900 border-slate-800">
+            <Card className="card-elevated">
                 <CardContent className="pt-6">
                     <form className="flex gap-4">
                         <div className="flex-1 relative">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                             <Input
                                 name="search"
                                 placeholder="Buscar por folio, nombre o apellido..."
                                 defaultValue={search}
-                                className="pl-10 bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
+                                className="pl-10"
                             />
                         </div>
                         <Button type="submit" variant="secondary">
@@ -105,17 +104,17 @@ export default async function PacientesPage({ searchParams }: PageProps) {
             {totalPages > 1 && (
                 <div className="flex justify-center gap-2">
                     {page > 1 && (
-                        <Button variant="outline" asChild className="border-slate-700 hover:bg-slate-800">
+                        <Button variant="outline" asChild>
                             <Link href={`/pacientes?search=${search}&page=${page - 1}`}>
                                 Anterior
                             </Link>
                         </Button>
                     )}
-                    <span className="flex items-center px-4 text-slate-400">
+                    <span className="flex items-center px-4 text-muted-foreground">
                         Página {page} de {totalPages}
                     </span>
                     {page < totalPages && (
-                        <Button variant="outline" asChild className="border-slate-700 hover:bg-slate-800">
+                        <Button variant="outline" asChild>
                             <Link href={`/pacientes?search=${search}&page=${page + 1}`}>
                                 Siguiente
                             </Link>
@@ -126,3 +125,4 @@ export default async function PacientesPage({ searchParams }: PageProps) {
         </div>
     );
 }
+

@@ -56,8 +56,8 @@ export function PacientesList({ pacientes }: PacientesListProps) {
     if (pacientes.length === 0) {
         return (
             <div className="text-center py-12">
-                <p className="text-slate-400 text-lg">No se encontraron pacientes</p>
-                <p className="text-slate-500 mt-2">
+                <p className="text-muted-foreground text-lg">No se encontraron pacientes</p>
+                <p className="text-muted-foreground/70 mt-2">
                     Registra un nuevo paciente para comenzar
                 </p>
             </div>
@@ -65,52 +65,52 @@ export function PacientesList({ pacientes }: PacientesListProps) {
     }
 
     return (
-        <div className="rounded-lg border border-slate-800 overflow-hidden">
+        <div className="rounded-lg border border-border overflow-hidden bg-card">
             <Table>
                 <TableHeader>
-                    <TableRow className="border-slate-800 hover:bg-transparent">
-                        <TableHead className="text-slate-400">Folio</TableHead>
-                        <TableHead className="text-slate-400">Nombre</TableHead>
-                        <TableHead className="text-slate-400 hidden md:table-cell">Edad</TableHead>
-                        <TableHead className="text-slate-400 hidden lg:table-cell">Género</TableHead>
-                        <TableHead className="text-slate-400 hidden lg:table-cell">Estudios</TableHead>
-                        <TableHead className="text-slate-400 hidden lg:table-cell">Reportes</TableHead>
-                        <TableHead className="text-slate-400 text-right">Acciones</TableHead>
+                    <TableRow className="border-border hover:bg-transparent">
+                        <TableHead className="text-muted-foreground">Folio</TableHead>
+                        <TableHead className="text-muted-foreground">Nombre</TableHead>
+                        <TableHead className="text-muted-foreground hidden md:table-cell">Edad</TableHead>
+                        <TableHead className="text-muted-foreground hidden lg:table-cell">Género</TableHead>
+                        <TableHead className="text-muted-foreground hidden lg:table-cell">Estudios</TableHead>
+                        <TableHead className="text-muted-foreground hidden lg:table-cell">Reportes</TableHead>
+                        <TableHead className="text-muted-foreground text-right">Acciones</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     {pacientes.map((paciente) => (
                         <TableRow
                             key={paciente.id}
-                            className="border-slate-800 hover:bg-slate-900/50"
+                            className="border-border hover:bg-muted/50"
                         >
                             <TableCell>
                                 <Badge
                                     variant="outline"
-                                    className="font-mono text-blue-400 border-blue-500/30 bg-blue-500/10"
+                                    className="font-mono"
                                 >
                                     {paciente.folio}
                                 </Badge>
                             </TableCell>
-                            <TableCell className="text-white font-medium">
+                            <TableCell className="text-foreground font-medium">
                                 {getNombreCompleto(paciente)}
                             </TableCell>
-                            <TableCell className="text-slate-300 hidden md:table-cell">
+                            <TableCell className="text-muted-foreground hidden md:table-cell">
                                 {paciente.fechaNacimiento
                                     ? `${calculateAge(paciente.fechaNacimiento)} años`
                                     : "-"}
                             </TableCell>
-                            <TableCell className="text-slate-300 hidden lg:table-cell">
+                            <TableCell className="text-muted-foreground hidden lg:table-cell">
                                 {getGeneroLabel(paciente.genero)}
                             </TableCell>
                             <TableCell className="hidden lg:table-cell">
-                                <div className="flex items-center gap-1 text-slate-400">
+                                <div className="flex items-center gap-1 text-muted-foreground">
                                     <ClipboardList className="h-4 w-4" />
                                     <span>{paciente._count?.estudios || 0}</span>
                                 </div>
                             </TableCell>
                             <TableCell className="hidden lg:table-cell">
-                                <div className="flex items-center gap-1 text-slate-400">
+                                <div className="flex items-center gap-1 text-muted-foreground">
                                     <FileText className="h-4 w-4" />
                                     <span>{paciente._count?.reportes || 0}</span>
                                 </div>
@@ -121,7 +121,7 @@ export function PacientesList({ pacientes }: PacientesListProps) {
                                         variant="ghost"
                                         size="icon"
                                         asChild
-                                        className="text-slate-400 hover:text-white hover:bg-slate-800"
+                                        className="text-muted-foreground hover:text-foreground"
                                     >
                                         <Link href={`/pacientes/${paciente.id}`}>
                                             <Eye className="h-4 w-4" />
@@ -131,7 +131,7 @@ export function PacientesList({ pacientes }: PacientesListProps) {
                                         variant="ghost"
                                         size="icon"
                                         asChild
-                                        className="text-slate-400 hover:text-white hover:bg-slate-800"
+                                        className="text-muted-foreground hover:text-foreground"
                                     >
                                         <Link href={`/pacientes/${paciente.id}?edit=true`}>
                                             <Edit className="h-4 w-4" />
@@ -146,3 +146,4 @@ export function PacientesList({ pacientes }: PacientesListProps) {
         </div>
     );
 }
+

@@ -9,7 +9,6 @@ import {
     FileText,
     ClipboardList,
     LayoutDashboard,
-    FlaskConical,
 } from "lucide-react";
 
 const navigation = [
@@ -24,11 +23,11 @@ export function Sidebar() {
 
     return (
         <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
-            <div className="flex min-h-0 flex-1 flex-col bg-slate-900 border-r border-slate-800">
+            <div className="flex min-h-0 flex-1 flex-col bg-background border-r border-border">
                 {/* Logo */}
-                <div className="flex h-16 shrink-0 items-center px-6 border-b border-slate-800">
+                <div className="flex h-16 shrink-0 items-center px-6 border-b border-border">
                     <div className="flex items-center gap-3">
-                        <div className="relative h-10 w-10 overflow-hidden rounded-lg">
+                        <div className="relative h-10 w-10 overflow-hidden rounded-lg border border-border">
                             <Image
                                 src="/icon.png"
                                 alt="Logo"
@@ -36,7 +35,7 @@ export function Sidebar() {
                                 className="object-cover"
                             />
                         </div>
-                        <span className="text-xl font-bold text-white">San Martin Labs</span>
+                        <span className="text-lg font-medium text-foreground">San Martin Labs</span>
                     </div>
                 </div>
 
@@ -54,14 +53,14 @@ export function Sidebar() {
                                         className={cn(
                                             "group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
                                             isActive
-                                                ? "bg-gradient-to-r from-blue-500/20 to-indigo-500/20 text-blue-400 border-l-2 border-blue-500"
-                                                : "text-slate-400 hover:bg-slate-800 hover:text-white"
+                                                ? "bg-primary text-primary-foreground"
+                                                : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                                         )}
                                     >
                                         <item.icon
                                             className={cn(
                                                 "h-5 w-5 shrink-0 transition-colors",
-                                                isActive ? "text-blue-400" : "text-slate-500 group-hover:text-white"
+                                                isActive ? "text-primary-foreground" : "text-muted-foreground group-hover:text-accent-foreground"
                                             )}
                                         />
                                         {item.name}
@@ -73,12 +72,13 @@ export function Sidebar() {
                 </nav>
 
                 {/* Footer */}
-                <div className="px-4 py-4 border-t border-slate-800">
-                    <p className="text-xs text-slate-500 text-center">
-                        © 2025 San Martin Labs
+                <div className="px-4 py-4 border-t border-border">
+                    <p className="text-xs text-muted-foreground text-center">
+                        © 2026 San Martin Labs
                     </p>
                 </div>
             </div>
         </div>
     );
 }
+

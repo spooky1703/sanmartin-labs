@@ -11,7 +11,7 @@ interface DashboardLayoutProps {
 export function DashboardLayout({ children }: DashboardLayoutProps) {
     return (
         <SessionProvider>
-            <div className="min-h-screen bg-slate-950">
+            <div className="min-h-screen bg-background">
                 <Sidebar />
                 <div className="lg:pl-64">
                     <Navbar />

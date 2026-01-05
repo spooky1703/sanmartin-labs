@@ -59,10 +59,10 @@ export function PrintButton({ pdfUrl }: PrintButtonProps) {
             variant="outline"
             onClick={handlePrint}
             disabled={isPrinting}
-            className="border-slate-700 hover:bg-slate-800"
         >
             <Printer className="mr-2 h-4 w-4" />
             {isPrinting ? "Preparando..." : "Imprimir"}
         </Button>
     );
 }
+

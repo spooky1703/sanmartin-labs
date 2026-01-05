@@ -49,24 +49,26 @@ export default function NuevoPacientePage() {
                     variant="ghost"
                     size="icon"
                     asChild
-                    className="text-slate-400 hover:text-white"
+                    className="text-muted-foreground hover:text-foreground"
                 >
                     <Link href="/pacientes">
                         <ArrowLeft className="h-5 w-5" />
                     </Link>
                 </Button>
                 <div>
-                    <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-                        <UserPlus className="h-6 w-6 text-blue-500" />
+                    <h1 className="text-2xl font-light text-foreground flex items-center gap-2">
+                        <div className="p-2 rounded-lg bg-muted">
+                            <UserPlus className="h-5 w-5" />
+                        </div>
                         Nuevo Paciente
                     </h1>
-                    <p className="text-slate-400">Registra un nuevo paciente en el sistema</p>
+                    <p className="text-muted-foreground">Registra un nuevo paciente en el sistema</p>
                 </div>
             </div>
 
             {/* Error Alert */}
             {error && (
-                <Alert variant="destructive" className="bg-red-900/50 border-red-800">
+                <Alert variant="destructive">
                     <AlertCircle className="h-4 w-4" />
                     <AlertDescription>{error}</AlertDescription>
                 </Alert>
@@ -81,3 +83,4 @@ export default function NuevoPacientePage() {
         </div>
     );
 }
+

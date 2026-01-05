@@ -153,7 +153,7 @@ function NuevoReporteContent() {
     if (isFetching) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
             </div>
         );
     }
@@ -166,23 +166,25 @@ function NuevoReporteContent() {
                     variant="ghost"
                     size="icon"
                     asChild
-                    className="text-slate-400 hover:text-white"
+                    className="text-muted-foreground hover:text-foreground"
                 >
                     <Link href="/reportes">
                         <ArrowLeft className="h-5 w-5" />
                     </Link>
                 </Button>
                 <div>
-                    <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-                        <FileText className="h-6 w-6 text-purple-500" />
+                    <h1 className="text-2xl font-light text-foreground flex items-center gap-2">
+                        <div className="p-2 rounded-lg bg-muted">
+                            <FileText className="h-5 w-5" />
+                        </div>
                         Nuevo Reporte
                     </h1>
-                    <p className="text-slate-400">Selecciona paciente y estudios para generar el reporte</p>
+                    <p className="text-muted-foreground">Selecciona paciente y estudios para generar el reporte</p>
                 </div>
             </div>
 
             {error && (
-                <Alert variant="destructive" className="bg-red-900/50 border-red-800">
+                <Alert variant="destructive">
                     <AlertCircle className="h-4 w-4" />
                     <AlertDescription>{error}</AlertDescription>
                 </Alert>
@@ -190,22 +192,24 @@ function NuevoReporteContent() {
 
             <div className="grid gap-6 lg:grid-cols-2">
                 {/* Patient Selection */}
-                <Card className="bg-slate-900 border-slate-800">
+                <Card className="card-elevated">
                     <CardHeader>
-                        <CardTitle className="text-white flex items-center gap-2">
-                            <User className="h-5 w-5 text-blue-500" />
+                        <CardTitle className="text-foreground flex items-center gap-2">
+                            <div className="p-1.5 rounded-lg bg-muted">
+                                <User className="h-4 w-4" />
+                            </div>
                             1. Seleccionar Paciente
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
                         {selectedPaciente ? (
-                            <div className="p-4 rounded-lg bg-blue-500/10 border border-blue-500/30">
+                            <div className="p-4 rounded-lg bg-primary/10 border border-primary/30">
                                 <div className="flex justify-between items-start">
                                     <div>
-                                        <p className="text-white font-medium">{getNombreCompleto(selectedPaciente)}</p>
+                                        <p className="text-foreground font-medium">{getNombreCompleto(selectedPaciente)}</p>
                                         <Badge
                                             variant="outline"
-                                            className="mt-1 font-mono text-blue-400 border-blue-500/30"
+                                            className="mt-1 font-mono"
                                         >
                                             {selectedPaciente.folio}
                                         </Badge>
@@ -217,7 +221,7 @@ function NuevoReporteContent() {
                                             setSelectedPaciente(null);
                                             setSelectedEstudios([]);
                                         }}
-                                        className="text-slate-400"
+                                        className="text-muted-foreground"
                                     >
                                         Cambiar
                                     </Button>
@@ -229,17 +233,16 @@ function NuevoReporteContent() {
                                     placeholder="Buscar por folio o nombre..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="bg-slate-800 border-slate-700 text-white"
                                 />
                                 <div className="max-h-[300px] overflow-y-auto space-y-2">
                                     {filteredPacientes.map((paciente) => (
                                         <button
                                             key={paciente.id}
                                             onClick={() => handleSelectPaciente(paciente)}
-                                            className="w-full p-3 text-left rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-colors"
+                                            className="w-full p-3 text-left rounded-lg bg-muted/50 hover:bg-muted border border-border transition-colors"
                                         >
-                                            <p className="text-white">{getNombreCompleto(paciente)}</p>
-                                            <p className="text-sm text-slate-400">{paciente.folio}</p>
+                                            <p className="text-foreground">{getNombreCompleto(paciente)}</p>
+                                            <p className="text-sm text-muted-foreground">{paciente.folio}</p>
                                         </button>
                                     ))}
                                 </div>
@@ -249,13 +252,15 @@ function NuevoReporteContent() {
                 </Card>
 
                 {/* Studies Selection */}
-                <Card className="bg-slate-900 border-slate-800">
+                <Card className="card-elevated">
                     <CardHeader>
-                        <CardTitle className="text-white flex items-center gap-2">
-                            <ClipboardList className="h-5 w-5 text-blue-500" />
+                        <CardTitle className="text-foreground flex items-center gap-2">
+                            <div className="p-1.5 rounded-lg bg-muted">
+                                <ClipboardList className="h-4 w-4" />
+                            </div>
                             2. Seleccionar Estudios
                             {selectedEstudios.length > 0 && (
-                                <Badge className="ml-2 bg-blue-500">
+                                <Badge className="ml-2">
                                     {selectedEstudios.length} seleccionado{selectedEstudios.length !== 1 ? "s" : ""}
                                 </Badge>
                             )}
@@ -263,17 +268,17 @@ function NuevoReporteContent() {
                     </CardHeader>
                     <CardContent>
                         {!selectedPaciente ? (
-                            <p className="text-slate-500 text-center py-8">
+                            <p className="text-muted-foreground text-center py-8">
                                 Selecciona un paciente primero
                             </p>
                         ) : selectedPaciente.estudios?.length === 0 ? (
                             <div className="text-center py-8">
-                                <ClipboardList className="h-12 w-12 mx-auto text-slate-600 mb-4" />
-                                <p className="text-slate-400">Este paciente no tiene estudios</p>
+                                <ClipboardList className="h-12 w-12 mx-auto text-muted-foreground/50 mb-4" />
+                                <p className="text-muted-foreground">Este paciente no tiene estudios</p>
                                 <Button
                                     variant="outline"
                                     asChild
-                                    className="mt-4 border-slate-700"
+                                    className="mt-4"
                                 >
                                     <Link href={`/pacientes/${selectedPaciente.id}/estudios/nuevo`}>
                                         Agregar Estudio
@@ -289,20 +294,20 @@ function NuevoReporteContent() {
                                             key={estudio.id}
                                             onClick={() => toggleEstudio(estudio.id)}
                                             className={`w-full p-3 text-left rounded-lg border transition-colors ${isSelected
-                                                ? "bg-blue-500/20 border-blue-500/50"
-                                                : "bg-slate-800 border-slate-700 hover:bg-slate-700"
+                                                ? "bg-primary/20 border-primary/50"
+                                                : "bg-muted/50 border-border hover:bg-muted"
                                                 }`}
                                         >
                                             <div className="flex items-center justify-between">
                                                 <div>
-                                                    <p className="text-white font-medium">{estudio.nombreEstudio}</p>
-                                                    <p className="text-sm text-slate-400">
+                                                    <p className="text-foreground font-medium">{estudio.nombreEstudio}</p>
+                                                    <p className="text-sm text-muted-foreground">
                                                         {formatDate(estudio.fechaRealizacion)} • {estudio.parametros.length} parámetros
                                                     </p>
                                                 </div>
                                                 {isSelected && (
-                                                    <div className="h-6 w-6 rounded-full bg-blue-500 flex items-center justify-center">
-                                                        <Check className="h-4 w-4 text-white" />
+                                                    <div className="h-6 w-6 rounded-full bg-primary flex items-center justify-center">
+                                                        <Check className="h-4 w-4 text-primary-foreground" />
                                                     </div>
                                                 )}
                                             </div>
@@ -316,38 +321,42 @@ function NuevoReporteContent() {
             </div>
 
             {/* Expiration Date */}
-            <Card className="bg-slate-900 border-slate-800">
+            <Card className="card-elevated">
                 <CardHeader>
-                    <CardTitle className="text-white flex items-center gap-2">
-                        <Calendar className="h-5 w-5 text-amber-500" />
+                    <CardTitle className="text-foreground flex items-center gap-2">
+                        <div className="p-1.5 rounded-lg bg-muted">
+                            <Calendar className="h-4 w-4" />
+                        </div>
                         3. Fecha de Expiración
                     </CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="max-w-xs">
-                        <Label className="text-slate-300">El reporte será válido hasta:</Label>
+                        <Label className="text-foreground">El reporte será válido hasta:</Label>
                         <Input
                             type="date"
                             value={fechaExpiracion}
                             onChange={(e) => setFechaExpiracion(e.target.value)}
                             min={formatForInput(new Date())}
-                            className="mt-2 bg-slate-800 border-slate-700 text-white"
+                            className="mt-2"
                         />
                     </div>
                 </CardContent>
             </Card>
 
             {/* Emitido Por */}
-            <Card className="bg-slate-900 border-slate-800">
+            <Card className="card-elevated">
                 <CardHeader>
-                    <CardTitle className="text-white flex items-center gap-2">
-                        <User className="h-5 w-5 text-purple-500" />
+                    <CardTitle className="text-foreground flex items-center gap-2">
+                        <div className="p-1.5 rounded-lg bg-muted">
+                            <User className="h-4 w-4" />
+                        </div>
                         4. Responsable del Reporte
                     </CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="max-w-md">
-                        <Label htmlFor="emitidoPor" className="text-slate-300">
+                        <Label htmlFor="emitidoPor" className="text-foreground">
                             Nombre completo del responsable:
                         </Label>
                         <Input
@@ -356,10 +365,10 @@ function NuevoReporteContent() {
                             placeholder="Ej: Dr. Juan Pérez García"
                             value={emitidoPor}
                             onChange={(e) => setEmitidoPor(e.target.value)}
-                            className="mt-2 bg-slate-800 border-slate-700 text-white"
+                            className="mt-2"
                             maxLength={200}
                         />
-                        <p className="text-xs text-slate-500 mt-1">
+                        <p className="text-xs text-muted-foreground mt-1">
                             Este nombre aparecerá en el PDF del reporte
                         </p>
                     </div>
@@ -368,13 +377,12 @@ function NuevoReporteContent() {
 
             {/* Submit */}
             <div className="flex justify-end gap-4">
-                <Button variant="outline" asChild className="border-slate-700">
+                <Button variant="outline" asChild>
                     <Link href="/reportes">Cancelar</Link>
                 </Button>
                 <Button
                     onClick={handleSubmit}
                     disabled={isLoading || !selectedPaciente || selectedEstudios.length === 0}
-                    className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700"
                 >
                     {isLoading ? (
                         <>
@@ -397,10 +405,11 @@ export default function NuevoReportePage() {
     return (
         <Suspense fallback={
             <div className="flex items-center justify-center min-h-[400px]">
-                <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
             </div>
         }>
             <NuevoReporteContent />
         </Suspense>
     );
 }
+
