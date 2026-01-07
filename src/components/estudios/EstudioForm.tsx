@@ -298,7 +298,7 @@ export function EstudioForm({
 
                         <div className="space-y-2">
                             <Label htmlFor="fechaRealizacion" className="text-foreground">
-                                Fecha de Realización <span className="text-destructive">*</span>
+                                Fecha de Toma <span className="text-destructive">*</span>
                             </Label>
                             <Input
                                 id="fechaRealizacion"

@@ -409,7 +409,7 @@ export function ReportePDF({
                             <View style={styles.studyHeader}>
                                 <Text style={styles.studyTitle}>{estudio.nombreEstudio}</Text>
                                 <Text style={styles.studyDate}>
-                                    Realizado: {formatDate(estudio.fechaRealizacion)}
+                                    FECHA DE TOMA: {formatDate(estudio.fechaRealizacion)}
                                 </Text>
                             </View>
 
