@@ -60,13 +60,13 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-background px-4">
+        <>
             {/* Theme Toggle - Top Right */}
-            <div className="absolute top-4 right-4">
+            <div className="absolute top-4 right-4 z-20">
                 <ThemeToggle />
             </div>
 
-            <Card className="w-full max-w-md border-border bg-card shadow-sm">
+            <Card className="w-full max-w-md border-border/50 bg-card/80 backdrop-blur-xl shadow-2xl">
                 <CardHeader className="space-y-4 text-center pb-2">
                     <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-xl border border-border relative overflow-hidden">
                         <Image
@@ -145,7 +145,7 @@ export default function LoginPage() {
                     </form>
                 </CardContent>
             </Card>
-        </div>
+        </>
     );
 }
 

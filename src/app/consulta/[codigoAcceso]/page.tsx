@@ -321,7 +321,7 @@ export default function ConsultaPage({
 
     // Show validation form with animated background
     return (
-        <div className="min-h-screen flex items-center justify-center bg-background p-4 relative overflow-hidden">
+        <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
             {/* Base gradient mesh */}
             <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/30" />
 
@@ -377,7 +377,7 @@ export default function ConsultaPage({
                 <div className="absolute bottom-8 right-8 w-16 h-16 border-r-2 border-b-2 border-primary/15 animate-corner-pulse-delay" />
             </div>
 
-            <Card className="w-full max-w-md card-elevated backdrop-blur-sm relative z-10">
+            <Card className="w-full max-w-md border-border/50 bg-card/80 backdrop-blur-xl shadow-2xl relative z-10">
                 <CardHeader className="text-center space-y-4">
                     <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-lg relative overflow-hidden shadow-lg">
                         <Image
