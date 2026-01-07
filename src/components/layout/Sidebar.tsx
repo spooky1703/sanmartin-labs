@@ -8,11 +8,9 @@ import {
     Users,
     FileText,
     ClipboardList,
-    LayoutDashboard,
 } from "lucide-react";
 
 const navigation = [
-    { name: "Dashboard", href: "/", icon: LayoutDashboard },
     { name: "Pacientes", href: "/pacientes", icon: Users },
     { name: "Estudios", href: "/estudios", icon: ClipboardList },
     { name: "Reportes", href: "/reportes", icon: FileText },
