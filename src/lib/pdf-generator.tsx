@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     },
     signatureSection: {
         position: "absolute",
-        bottom: 80, // Account for template margin
+        bottom: 80,
         left: 0,
         right: 0,
         display: "flex",
@@ -220,11 +220,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingTop: 20,
     },
-    signatureLabel: {
-        fontSize: 9,
-        fontWeight: "bold",
-        color: "#374151",
-        marginBottom: 15,
+    signatureImage: {
+        width: 120,
+        height: 50,
+        objectFit: "contain",
+        marginBottom: -10,
     },
     signatureLine: {
         borderTopWidth: 1,
@@ -270,6 +270,7 @@ interface ReportePDFProps {
         apellidoPaterno: string;
         apellidoMaterno?: string | null;
         fechaNacimiento?: Date | string | null;
+        genero?: string | null;
     };
     estudios: Estudio[];
     fechaEmision: Date | string;
@@ -319,8 +320,27 @@ function getReferenceText(min?: string | null, max?: string | null): string {
 }
 
 function getNombreCompleto(paciente: ReportePDFProps["paciente"]): string {
-    return `${paciente.nombre} ${paciente.apellidoPaterno} ${paciente.apellidoMaterno || ""
-        }`.trim();
+    return `${paciente.nombre} ${paciente.apellidoPaterno} ${paciente.apellidoMaterno || ""}`.trim();
+}
+
+function calculateAge(fechaNacimiento?: Date | string | null): string {
+    if (!fechaNacimiento) return "--";
+    const birthDate = new Date(fechaNacimiento);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return `${age} años`;
+}
+
+function formatGenero(genero?: string | null): string {
+    if (!genero) return "--";
+    const g = genero.toLowerCase();
+    if (g === "masculino" || g === "m" || g === "hombre") return "M";
+    if (g === "femenino" || g === "f" || g === "mujer") return "F";
+    return genero;
 }
 
 export function ReportePDF({
@@ -334,6 +354,7 @@ export function ReportePDF({
 }: ReportePDFProps) {
     const logoPath = getImagePath("logo.png");
     const templatePath = getImagePath("plantilla.png");
+    const firmaPath = getImagePath("firma.png");
 
     return (
         <Document>
@@ -354,16 +375,18 @@ export function ReportePDF({
                         {/* Left Column: Patient Info */}
                         <View style={styles.patientInfoCol}>
                             <View style={styles.patientRow}>
-                                <Text style={styles.patientLabel}>Paciente:</Text>
-                                <Text style={styles.patientValue}>{getNombreCompleto(paciente)}</Text>
-                            </View>
-                            <View style={styles.patientRow}>
                                 <Text style={styles.patientLabel}>Folio:</Text>
                                 <Text style={styles.patientValue}>{paciente.folio}</Text>
                             </View>
                             <View style={styles.patientRow}>
-                                <Text style={styles.patientLabel}>Emitido por:</Text>
-                                <Text style={styles.patientValue}>{emitidoPor}</Text>
+                                <Text style={styles.patientLabel}>Paciente:</Text>
+                                <Text style={styles.patientValue}>{getNombreCompleto(paciente)}</Text>
+                            </View>
+                            <View style={styles.patientRow}>
+                                <Text style={styles.patientLabel}>Edad:</Text>
+                                <Text style={styles.patientValue}>
+                                    {calculateAge(paciente.fechaNacimiento)}          Sexo: {formatGenero(paciente.genero)}
+                                </Text>
                             </View>
                             <View style={styles.patientRow}>
                                 <Text style={styles.patientLabel}>Fecha Emisión:</Text>
@@ -468,6 +491,7 @@ export function ReportePDF({
 
                 {/* Signature Section - Fixed at page footer */}
                 <View style={styles.signatureSection} fixed>
+                    <Image style={styles.signatureImage} src={firmaPath} />
                     <View style={styles.signatureLine} />
                     <Text style={styles.signatureText}>FIRMA DE RESPONSABLE</Text>
                 </View>
