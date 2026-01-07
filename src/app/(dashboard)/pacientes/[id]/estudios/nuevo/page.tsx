@@ -16,6 +16,7 @@ interface Paciente {
     nombre: string;
     apellidoPaterno: string;
     apellidoMaterno?: string;
+    genero?: string;
 }
 
 export default function NuevoEstudioPage({
@@ -146,6 +147,7 @@ export default function NuevoEstudioPage({
                 onSubmit={handleSubmit}
                 isLoading={isLoading}
                 submitLabel="Crear Estudio"
+                pacienteGenero={paciente?.genero}
             />
         </div>
     );

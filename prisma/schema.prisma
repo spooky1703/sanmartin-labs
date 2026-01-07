@@ -73,18 +73,55 @@ model Paciente {
   @@index([laboratorioId])
 }
 
-model Estudio {
-  id               String             @id @default(cuid())
-  pacienteId       String
-  nombreEstudio    String
-  fechaRealizacion DateTime
-  observaciones    String?
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
+// Catálogo de tipos de estudios disponibles
+model CatalogoEstudio {
+  id          String   @id @default(cuid())
+  nombre      String   @unique
+  descripcion String?
+  categoria   String?  // Hematología, Química, Inmunología, etc.
+  activo      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  paciente   Paciente           @relation(fields: [pacienteId], references: [id])
-  parametros ParametroEstudio[]
-  reportes   ReporteEstudio[]
+  parametros PlantillaParametro[]
+  estudios   Estudio[]
+
+  @@map("catalogo_estudios")
+}
+
+// Plantilla de parámetros para cada tipo de estudio
+model PlantillaParametro {
+  id              String  @id @default(cuid())
+  catalogoId      String
+  nombre          String
+  unidad          String
+  valorRefMinH    String? // Rango mínimo hombres
+  valorRefMaxH    String? // Rango máximo hombres
+  valorRefMinM    String? // Rango mínimo mujeres (si difiere)
+  valorRefMaxM    String? // Rango máximo mujeres (si difiere)
+  valorCriticoMin String? // Valor crítico bajo
+  valorCriticoMax String? // Valor crítico alto
+  orden           Int     @default(0)
+
+  catalogo CatalogoEstudio @relation(fields: [catalogoId], references: [id], onDelete: Cascade)
+
+  @@map("plantilla_parametros")
+}
+
+model Estudio {
+  id                String             @id @default(cuid())
+  pacienteId        String
+  catalogoEstudioId String?            // Referencia al catálogo (opcional para backwards compat)
+  nombreEstudio     String
+  fechaRealizacion  DateTime
+  observaciones     String?
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  paciente        Paciente           @relation(fields: [pacienteId], references: [id])
+  catalogoEstudio CatalogoEstudio?   @relation(fields: [catalogoEstudioId], references: [id])
+  parametros      ParametroEstudio[]
+  reportes        ReporteEstudio[]
 
   @@map("estudios")
 }
@@ -97,6 +134,7 @@ model ParametroEstudio {
   unidad          String
   valorRefMin     String?
   valorRefMax     String?
+  estado          String?  // NORMAL, BAJO, ALTO, CRITICO_BAJO, CRITICO_ALTO
   orden           Int      @default(0)
   createdAt       DateTime @default(now())
 
@@ -104,6 +142,7 @@ model ParametroEstudio {
 
   @@map("parametros_estudio")
 }
+
 
 model Reporte {
   id              String           @id @default(cuid())
