@@ -66,7 +66,7 @@ export default async function CatalogoDetallePage({
                         <p className="text-muted-foreground mt-1">{estudio.descripcion}</p>
                     )}
                 </div>
-                <Button variant="outline" asChild disabled>
+                <Button variant="outline" asChild>
                     <Link href={`/catalogo/${id}/editar`}>
                         <Edit className="mr-2 h-4 w-4" />
                         Editar
