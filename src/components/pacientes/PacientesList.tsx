@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Eye, Edit, FileText, ClipboardList } from "lucide-react";
+import { FileText, ClipboardList } from "lucide-react";
 
 interface Paciente {
     id: string;
@@ -116,28 +116,16 @@ export function PacientesList({ pacientes }: PacientesListProps) {
                                 </div>
                             </TableCell>
                             <TableCell className="text-right">
-                                <div className="flex justify-end gap-2">
-                                    <Button
-                                        variant="ghost"
-                                        size="icon"
-                                        asChild
-                                        className="text-muted-foreground hover:text-foreground"
-                                    >
-                                        <Link href={`/pacientes/${paciente.id}`}>
-                                            <Eye className="h-4 w-4" />
-                                        </Link>
-                                    </Button>
-                                    <Button
-                                        variant="ghost"
-                                        size="icon"
-                                        asChild
-                                        className="text-muted-foreground hover:text-foreground"
-                                    >
-                                        <Link href={`/pacientes/${paciente.id}?edit=true`}>
-                                            <Edit className="h-4 w-4" />
-                                        </Link>
-                                    </Button>
-                                </div>
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    asChild
+                                >
+                                    <Link href={`/pacientes/${paciente.id}`}>
+                                        <ClipboardList className="mr-2 h-4 w-4" />
+                                        Ver Perfil
+                                    </Link>
+                                </Button>
                             </TableCell>
                         </TableRow>
                     ))}
