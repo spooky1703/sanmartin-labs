@@ -35,8 +35,8 @@ import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 const navigation = [
     { name: "Pacientes", href: "/pacientes", icon: Users },
-    { name: "Estudios", href: "/estudios", icon: ClipboardList },
     { name: "Catálogo", href: "/catalogo", icon: BookOpen },
+    { name: "Estudios", href: "/estudios", icon: ClipboardList },
     { name: "Reportes", href: "/reportes", icon: FileText },
 ];
 
