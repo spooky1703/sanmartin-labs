@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import { formatDate, isReportExpired } from "@/lib/utils";
 import { PrintButton } from "@/components/reportes/PrintButton";
+import { ConsultaUrlSection } from "@/components/reportes/ConsultaUrlSection";
 
 interface PageProps {
     params: Promise<{ id: string }>;
@@ -248,25 +249,10 @@ export default async function ReporteDetailPage({ params }: PageProps) {
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <div className="flex items-center gap-4 p-4 rounded-lg bg-muted/50 border border-border">
-                            <div className="flex-1">
-                                <p className="text-sm text-muted-foreground mb-2">
-                                    El paciente puede consultar sus resultados en línea usando:
-                                </p>
-                                <div className="space-y-2">
-                                    <div>
-                                        <p className="text-xs text-muted-foreground">URL de consulta</p>
-                                        <code className="text-primary text-sm break-all">
-                                            {typeof window !== "undefined" ? window.location.origin : ""}{consultaUrl}
-                                        </code>
-                                    </div>
-                                    <div>
-                                        <p className="text-xs text-muted-foreground">Folio para validación</p>
-                                        <code className="text-foreground">{reporte.paciente.folio}</code>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <ConsultaUrlSection
+                            consultaUrl={consultaUrl}
+                            folio={reporte.paciente.folio}
+                        />
                     </CardContent>
                 </Card>
             </div>

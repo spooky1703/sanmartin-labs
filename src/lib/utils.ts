@@ -77,11 +77,11 @@ export function isValueInRange(
 }
 
 /**
- * Obtiene la fecha de expiración por defecto (30 días desde hoy)
+ * Obtiene la fecha de expiración por defecto (15 días desde hoy)
  */
 export function getDefaultExpirationDate(): Date {
     const date = new Date();
-    date.setDate(date.getDate() + 30);
+    date.setDate(date.getDate() + 15);
     return date;
 }
 

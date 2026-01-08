@@ -26,10 +26,10 @@ export function formatDateTime(date: Date | string): string {
 }
 
 /**
- * Obtiene la fecha de expiración por defecto (30 días)
+ * Obtiene la fecha de expiración por defecto (15 días)
  */
 export function getDefaultExpirationDate(): Date {
-    return addDays(new Date(), 30);
+    return addDays(new Date(), 15);
 }
 
 /**
