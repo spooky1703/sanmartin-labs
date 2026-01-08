@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { QrCode, User, Check, Copy, ExternalLink } from "lucide-react";
+import { User, Check, Copy, ExternalLink } from "lucide-react";
 
 interface ConsultaUrlSectionProps {
     consultaUrl: string;
@@ -12,6 +12,7 @@ interface ConsultaUrlSectionProps {
 
 export function ConsultaUrlSection({ consultaUrl, folio }: ConsultaUrlSectionProps) {
     const [copied, setCopied] = useState(false);
+    const [copiedFolio, setCopiedFolio] = useState(false);
     const [fullUrl, setFullUrl] = useState("");
 
     useEffect(() => {
@@ -25,6 +26,16 @@ export function ConsultaUrlSection({ consultaUrl, folio }: ConsultaUrlSectionPro
             setTimeout(() => setCopied(false), 2000);
         } catch (err) {
             console.error("Error al copiar:", err);
+        }
+    };
+
+    const handleCopyFolio = async () => {
+        try {
+            await navigator.clipboard.writeText(folio);
+            setCopiedFolio(true);
+            setTimeout(() => setCopiedFolio(false), 2000);
+        } catch (err) {
+            console.error("Error al copiar folio:", err);
         }
     };
 
@@ -69,12 +80,32 @@ export function ConsultaUrlSection({ consultaUrl, folio }: ConsultaUrlSectionPro
             </div>
 
             {/* Folio Info */}
-            <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 border border-border">
-                <User className="h-5 w-5 text-muted-foreground shrink-0" />
-                <div>
-                    <p className="text-xs text-muted-foreground">Folio del paciente (requerido para consultar)</p>
-                    <p className="font-mono font-bold text-foreground">{folio}</p>
+            <div className="flex items-center justify-between gap-3 p-3 rounded-lg bg-muted/50 border border-border">
+                <div className="flex items-center gap-3">
+                    <User className="h-5 w-5 text-muted-foreground shrink-0" />
+                    <div>
+                        <p className="text-xs text-muted-foreground">Folio del paciente (requerido para consultar)</p>
+                        <p className="font-mono font-bold text-foreground text-lg">{folio}</p>
+                    </div>
                 </div>
+                <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleCopyFolio}
+                    className="shrink-0"
+                >
+                    {copiedFolio ? (
+                        <>
+                            <Check className="mr-2 h-4 w-4 text-green-500" />
+                            Copiado
+                        </>
+                    ) : (
+                        <>
+                            <Copy className="mr-2 h-4 w-4" />
+                            Copiar
+                        </>
+                    )}
+                </Button>
             </div>
 
             {/* Quick Actions */}
